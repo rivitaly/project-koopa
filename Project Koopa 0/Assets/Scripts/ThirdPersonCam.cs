@@ -7,8 +7,8 @@ public class ThirdPersonCam : MonoBehaviour
     public Transform player;
     public Transform playerObj;
     public Rigidbody rb;
+    public float rotationSpeed;
 
-    private readonly float rotationSpeed;
     private float xInput;
     private float zInput;
 
@@ -23,7 +23,7 @@ public class ThirdPersonCam : MonoBehaviour
     {
         // rotates player orientation
         Vector3 viewDirection = player.position - new Vector3(transform.position.x, player.position.y, transform.position.z);
-        orientation.forward = viewDirection;
+        orientation.forward = viewDirection.normalized;
 
         // rotate player object
         Vector3 inputDir = orientation.forward * zInput + orientation.right * xInput;

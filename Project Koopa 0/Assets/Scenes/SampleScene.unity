@@ -479,7 +479,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 293701859}
-  m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &438249123
 GameObject:
   m_ObjectHideFlags: 3
@@ -844,6 +844,7 @@ Transform:
   m_Children:
   - {fileID: 293701860}
   - {fileID: 277970675}
+  - {fileID: 982580378}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &854586691
@@ -859,7 +860,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Actions: {fileID: -944628639613478452, guid: 289c1b55c9541489481df5cc06664110, type: 3}
-  m_NotificationBehavior: 0
+  m_NotificationBehavior: 1
   m_UIInputModule: {fileID: 0}
   m_DeviceLostEvent:
     m_PersistentCalls:
@@ -1180,11 +1181,11 @@ Transform:
   m_GameObject: {fileID: 982580374}
   serializedVersion: 2
   m_LocalRotation: {x: 0.11559232, y: 0.00000004186434, z: -0.000000004871853, w: 0.9932968}
-  m_LocalPosition: {x: 10.87, y: 3.3400002, z: -2.23}
+  m_LocalPosition: {x: 0, y: 2, z: -7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 854586689}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &982580379
 MonoBehaviour:
@@ -1202,6 +1203,7 @@ MonoBehaviour:
   player: {fileID: 854586689}
   playerObj: {fileID: 293701860}
   rb: {fileID: 854586688}
+  rotationSpeed: 7
 --- !u!1 &1427571407
 GameObject:
   m_ObjectHideFlags: 0
@@ -1524,5 +1526,4 @@ SceneRoots:
   - {fileID: 705507995}
   - {fileID: 253959911}
   - {fileID: 854586689}
-  - {fileID: 982580378}
   - {fileID: 1427571409}
