@@ -29,7 +29,10 @@ public class ThirdPersonCam : MonoBehaviour
         Vector3 inputDir = orientation.forward * zInput + orientation.right * xInput;
         if (inputDir != Vector3.zero) 
         {
-            playerObj.forward = Vector3.Slerp(playerObj.forward, inputDir.normalized, Time.deltaTime * rotationSpeed);
+            // get direction with no y direction so we can remove the ability for the character to sometimes rotate on the wrong axis
+            Vector3 flatDir = new Vector3(inputDir.x, 0f, inputDir.z).normalized; 
+            Quaternion targetRotation = Quaternion.LookRotation(flatDir);
+            playerObj.rotation = Quaternion.Slerp(playerObj.rotation, targetRotation, Time.deltaTime * rotationSpeed);
         }
     }
 
