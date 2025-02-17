@@ -3,8 +3,19 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
+    // player states for animations
+    public enum PlayerState
+    {
+        Walk,
+        Run,
+        Attack,
+        Idle,
+        Jump
+    }
+
     [Header("Movement")]
     Rigidbody rb;
+    PlayerState state;
     public Transform orientation;
     public float moveSpeed;
     public float runMultiplier;
@@ -14,15 +25,19 @@ public class PlayerMovement : MonoBehaviour
     public float jumpCooldown;
     public float airChange;
     public float gravityMultiplier;
-    bool canJump = true;
+    bool jumping = false;
     bool running = false;
     
-
-
     [Header("Ground Check")]
     public float playerHeight;
     public LayerMask whatIsGround;
     bool onGround;
+
+    [Header("Combat System")]
+    bool isAttacking = false;
+    public float health;
+    public float damage;
+    public float stamina; // optional
 
     // player input
     float xInput;
@@ -38,12 +53,11 @@ public class PlayerMovement : MonoBehaviour
     // updates variables 
     void Update()
     {
-        MoveSpeedLimter();
         GroundChecks();
         
-        if(Input.GetButton("Jump") && canJump && onGround)
+        if(Input.GetButton("Jump") && !jumping && onGround)
         {
-            canJump = false;
+            jumping = true;
             Jump();
             Invoke(nameof(ResetJump), jumpCooldown);
         }
@@ -52,6 +66,8 @@ public class PlayerMovement : MonoBehaviour
         {
             running = !running;
         }
+
+        StateMachine();
     }
 
     // updates physics/ai based movement/info
@@ -68,6 +84,9 @@ public class PlayerMovement : MonoBehaviour
     }
 
     // moves player based on input and forward orientation
+    // still need to change angles, cant jump while on slope
+    // con for frictionless, character slides down slopes so need to adjust that
+    // pro for frictionless, smooth movement
     void MovePlayer() 
     {
         float speed;
@@ -88,6 +107,22 @@ public class PlayerMovement : MonoBehaviour
             rb.AddForce(10f * speed * airChange * moveDir, ForceMode.Force);
             rb.AddForce(Vector3.down * gravityMultiplier);
         }
+
+        MoveSpeedLimter(speed);
+    }
+
+    // limits the player movement speed to our defined movement speed
+    void MoveSpeedLimter(float speed)
+    {
+        // captures our velocity
+        Vector3 flatVelocity = new(rb.linearVelocity.x, 0, rb.linearVelocity.z);
+
+        // if we are moving faster than our max movement speed, limit it to max speed
+        if (flatVelocity.magnitude > speed)
+        {
+            Vector3 velocityMax = flatVelocity.normalized * speed;
+            rb.linearVelocity = new(velocityMax.x, rb.linearVelocity.y, velocityMax.z);
+        }
     }
 
     // player jumps based on input
@@ -101,27 +136,11 @@ public class PlayerMovement : MonoBehaviour
     // resets jump bool
     void ResetJump() 
     {
-        canJump = true;
-    }
-
-    // limits the player movement speed to our defined movement speed
-    void MoveSpeedLimter() 
-    {
-        Vector3 flatVelocity = new(rb.linearVelocity.x, 0, rb.linearVelocity.z);
-
-        if (flatVelocity.magnitude > moveSpeed && !running)
-        {
-            Vector3 velocityMax = flatVelocity.normalized * moveSpeed;
-            rb.linearVelocity = new(velocityMax.x, rb.linearVelocity.y, velocityMax.z);
-        }
-        else if (flatVelocity.magnitude > moveSpeed && running)
-        {
-            Vector3 velocityMax = moveSpeed * runMultiplier * flatVelocity.normalized;
-            rb.linearVelocity = new(velocityMax.x, rb.linearVelocity.y, velocityMax.z);
-        }
+        jumping = false;
     }
 
     // checks ground related variables
+    // need better ground check, account for slopes
     void GroundChecks() 
     {
         // check if on ground by sending raycast
@@ -132,5 +151,32 @@ public class PlayerMovement : MonoBehaviour
             rb.linearDamping = groundDrag;
         else
             rb.linearDamping = 0;
+    }
+
+    // player attacking 
+    public void OnAttack() 
+    {
+        Debug.Log(state);
+        // set is attacking to true
+        // swing batter batter swing 
+        // control collision
+        // play animation
+        // set is attacking to false
+    }
+
+    // changes the state our player is in, we will use this state to determine what animation to play for our character
+    void StateMachine()
+    {
+        if (jumping)
+            state = PlayerState.Jump;
+        else if (isAttacking)
+            state = PlayerState.Attack;
+        else if ((zInput != 0.0 || xInput != 0.0) && onGround && running)
+            state = PlayerState.Run;
+        else if ((zInput != 0.0 || xInput != 0.0) && onGround)
+            state = PlayerState.Walk;
+        else if (onGround)
+            state = PlayerState.Idle;
+        
     }
 }
