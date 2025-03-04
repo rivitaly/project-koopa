@@ -144,13 +144,15 @@ public class PlayerMovement : MonoBehaviour
     void GroundChecks() 
     {
         // check if on ground by sending raycast
-        onGround = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, whatIsGround);
+        onGround = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.1f, whatIsGround);
 
         // handle drag
         if (onGround)
             rb.linearDamping = groundDrag;
         else
             rb.linearDamping = 0;
+
+        Debug.Log(onGround);
     }
 
     // player attacking 
