@@ -6,11 +6,11 @@ public class PlayerMovement : MonoBehaviour
     // player states for animations
     public enum PlayerState
     {
-        Walk,
-        Run,
-        Attack,
-        Idle,
-        Jump
+        Walk = 0,
+        Run = 1,
+        Attack = 2,
+        Idle = 3,
+        Jump = 4
     }
 
     [Header("Movement")]
@@ -108,11 +108,11 @@ public class PlayerMovement : MonoBehaviour
             rb.AddForce(Vector3.down * gravityMultiplier);
         }
 
-        MoveSpeedLimter(speed);
+        MoveSpeedLimiter(speed);
     }
 
     // limits the player movement speed to our defined movement speed
-    void MoveSpeedLimter(float speed)
+    void MoveSpeedLimiter(float speed)
     {
         // captures our velocity
         Vector3 flatVelocity = new(rb.linearVelocity.x, 0, rb.linearVelocity.z);
@@ -143,22 +143,24 @@ public class PlayerMovement : MonoBehaviour
     // need better ground check, account for slopes
     void GroundChecks() 
     {
-        // check if on ground by sending raycast
-        onGround = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.1f, whatIsGround);
+        Vector3 playerRead = transform.position + (Vector3.up * playerHeight);
+        float distanceFromGround = playerHeight + 0.12f;
+
+        if (Physics.Raycast(playerRead, Vector3.down, distanceFromGround, whatIsGround))
+            onGround = true;
+        else
+            onGround = false;
 
         // handle drag
         if (onGround)
             rb.linearDamping = groundDrag;
         else
             rb.linearDamping = 0;
-
-        Debug.Log(onGround);
     }
 
     // player attacking 
     public void OnAttack() 
     {
-        Debug.Log(state);
         // set is attacking to true
         // swing batter batter swing 
         // control collision
@@ -181,4 +183,7 @@ public class PlayerMovement : MonoBehaviour
             state = PlayerState.Idle;
         
     }
+
+    public PlayerState GetPlayerState() { return state; }
+
 }

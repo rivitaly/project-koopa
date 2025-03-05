@@ -1,0 +1,38 @@
+using UnityEngine;
+
+public class PlayerAnimation : MonoBehaviour
+{
+    //Player stuff, basic
+    PlayerMovement playerMovement;
+    GameObject playerObj;
+    PlayerMovement.PlayerState playerState;
+
+    //I'm not too sure if AnimationClip is what to use, need to update
+    Animator animator;
+    [SerializeField] AnimationClip[] animations = new AnimationClip[5];
+    PlayerMovement.PlayerState currentAnimation = PlayerMovement.PlayerState.Idle;   //Default
+    void Start()
+    {
+        playerObj = transform.Find("PlayerObj").gameObject;
+        playerMovement = GetComponent<PlayerMovement>();
+        animator = playerObj.GetComponent<Animator>();
+    }
+
+    void Update()
+    {
+        //Get current state
+        playerState = playerMovement.GetPlayerState();
+
+        //If same state, do nothing
+        if (playerState == currentAnimation) return;
+
+        //Update animation to be in use
+        currentAnimation = playerState;
+        AnimationClip animationClip = animations[(int)currentAnimation];
+
+        //Switch animations
+        print("Current State: " + currentAnimation);
+        //Need to do
+
+    }
+}
