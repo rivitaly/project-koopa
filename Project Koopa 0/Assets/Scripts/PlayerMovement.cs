@@ -141,12 +141,12 @@ public class PlayerMovement : MonoBehaviour
 
     // checks ground related variables
     // need better ground check, account for slopes
-    void GroundChecks() 
+    void GroundChecks()
     {
         Vector3 playerRead = transform.position + (Vector3.up * playerHeight);
-        float distanceFromGround = playerHeight + 0.12f;
+        float distanceFromGround = playerHeight - 0.75f;
 
-        if (Physics.Raycast(playerRead, Vector3.down, distanceFromGround, whatIsGround))
+        if (Physics.BoxCast(playerRead, transform.localScale * 0.7f, Vector3.down, transform.rotation, distanceFromGround, whatIsGround))
             onGround = true;
         else
             onGround = false;
@@ -157,6 +157,7 @@ public class PlayerMovement : MonoBehaviour
         else
             rb.linearDamping = 0;
     }
+
 
     // player attacking 
     public void OnAttack() 
