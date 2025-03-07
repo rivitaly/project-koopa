@@ -163,19 +163,23 @@ public class PlayerMovement : MonoBehaviour
     public void OnAttack() 
     {
         // set is attacking to true
+        if (!isAttacking) { isAttacking = true; }
         // swing batter batter swing 
         // control collision
         // play animation
+        // wait for animation to finish playing
         // set is attacking to false
+        //isAttacking = false;
     }
 
     // changes the state our player is in, we will use this state to determine what animation to play for our character
     void StateMachine()
     {
-        if (jumping)
-            state = PlayerState.Jump;
-        else if (isAttacking)
+        //Order of priority, should automatically no longer consider other states during isAttacking
+        if (isAttacking)
             state = PlayerState.Attack;
+        else if (jumping)
+            state = PlayerState.Jump;
         else if ((zInput != 0.0 || xInput != 0.0) && onGround && running)
             state = PlayerState.Run;
         else if ((zInput != 0.0 || xInput != 0.0) && onGround)

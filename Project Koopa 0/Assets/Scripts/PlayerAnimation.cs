@@ -8,14 +8,16 @@ public class PlayerAnimation : MonoBehaviour
     PlayerMovement.PlayerState playerState;
 
     //I'm not too sure if AnimationClip is what to use, need to update
-    Animator animator;
-    [SerializeField] AnimationClip[] animations = new AnimationClip[5];
+    [SerializeField] Animator animator;
     PlayerMovement.PlayerState currentAnimation = PlayerMovement.PlayerState.Idle;   //Default
+    [SerializeField]
+    bool[] animationStates = new bool[5];
     void Start()
     {
         playerObj = transform.Find("PlayerObj").gameObject;
         playerMovement = GetComponent<PlayerMovement>();
         animator = playerObj.GetComponent<Animator>();
+
     }
 
     void Update()
@@ -26,9 +28,7 @@ public class PlayerAnimation : MonoBehaviour
         //If same state, do nothing
         if (playerState == currentAnimation) return;
 
-        //Update animation to be in use
-        currentAnimation = playerState;
-        AnimationClip animationClip = animations[(int)currentAnimation];
+        //Set animator's bool state
 
         //Switch animations
         print("Current State: " + currentAnimation);
