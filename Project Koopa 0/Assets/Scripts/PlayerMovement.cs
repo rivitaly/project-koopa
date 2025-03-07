@@ -35,7 +35,7 @@ public class PlayerMovement : MonoBehaviour
     bool onGround;
 
     [Header("Combat System")]
-    bool isAttacking = false;
+    public bool isAttacking = false;
     public float health;
     public float damage;
     public float stamina; // optional
@@ -112,6 +112,9 @@ public class PlayerMovement : MonoBehaviour
         else 
             speed = moveSpeed;
 
+        if (isAttacking)
+            speed = 0;
+
         moveDir = orientation.forward * zInput + orientation.right * xInput;
 
         // movement while on the ground
@@ -179,8 +182,9 @@ public class PlayerMovement : MonoBehaviour
     // player attacking 
     public void OnAttack() 
     {
+        if (jumping) { print("Can't attack");  return; }
         // set is attacking to true
-        if(!isAttacking)
+        if (!isAttacking)
         {
             isAttacking = true;
             StartCoroutine(nameof(Attack));

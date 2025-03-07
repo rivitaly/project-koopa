@@ -61,8 +61,9 @@ public class EnemyBehaviour : MonoBehaviour
                     if (isChasing) { isChasing = false; }
                     rb.linearVelocity = Vector3.zero;
                     isAttacking = true;
-                    //StartCoroutine(nameof(Attack));
+                    StartCoroutine(nameof(Attack));
                 }
+                rb.constraints = RigidbodyConstraints.FreezePosition | RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
                 LookAtPlayer();
             }
             else
@@ -73,10 +74,12 @@ public class EnemyBehaviour : MonoBehaviour
                     LookAtPlayer();
                     isChasing = true;
                 }
+                rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
             }
         }
         else
         {
+            if (isAttacking) { return; }
             if (transform.position == origin)
             {
                 rb.linearVelocity = Vector3.zero;
@@ -123,7 +126,7 @@ public class EnemyBehaviour : MonoBehaviour
 
         //Wait
         yield return new WaitForSeconds(attackCooldown);
-        isAttacking = true;
+        isAttacking = false;
     }
 
     void StateMachine()

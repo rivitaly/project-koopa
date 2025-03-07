@@ -8,10 +8,9 @@ public class PlayerAnimation : MonoBehaviour
     PlayerMovement.PlayerState playerState;
 
     //I'm not too sure if AnimationClip is what to use, need to update
-    [SerializeField] Animator animator;
+    Animator animator;
     PlayerMovement.PlayerState currentAnimation = PlayerMovement.PlayerState.Idle;   //Default
-    [SerializeField]
-    bool[] animationStates = new bool[5];
+    [SerializeField] bool[] animationStates = new bool[5];
     void Start()
     {
         playerObj = transform.Find("PlayerObj").gameObject;
