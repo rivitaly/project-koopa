@@ -21,7 +21,7 @@ public class ThirdPersonCam : MonoBehaviour
 
     private void Update()
     {
-        if (player.GetComponent<PlayerMovement>().isAttacking) { return; }
+        //if (player.GetComponent<PlayerMovement>().isAttacking) { return; }
         // rotates player orientation
         Vector3 viewDirection = player.position - new Vector3(transform.position.x, player.position.y, transform.position.z);
         orientation.forward = viewDirection.normalized;

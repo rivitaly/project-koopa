@@ -1,4 +1,6 @@
+using NUnit.Framework;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyBehaviour : MonoBehaviour
@@ -23,6 +25,8 @@ public class EnemyBehaviour : MonoBehaviour
         Attack = 3
     }
 
+    List<GameObject> collisions = new List<GameObject>();
+
     EnemyState state;
     // sets rigidbody component on run
     void Start()
@@ -36,6 +40,8 @@ public class EnemyBehaviour : MonoBehaviour
     // updates direction to player, velocity of our enemy, and where it looks at based on the direction to player
     void Update()
     {
+        if (collisions.Count > 0) { Destroy(gameObject); }
+
         directionToPlayer = player.transform.position - transform.position;
         currentVelocity = directionToPlayer.normalized * speed;
         transform.rotation = Quaternion.Euler(0, transform.rotation.eulerAngles.y, 0);
@@ -142,8 +148,27 @@ public class EnemyBehaviour : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Sword") && playerMovement.GetPlayerState() == PlayerMovement.PlayerState.Attack)
         {
-            Destroy(gameObject);
+            if (collisions.Contains(other.gameObject)) { return; }
+            collisions.Add(other.gameObject);
+            return;
         }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.CompareTag("Sword") && playerMovement.GetPlayerState() == PlayerMovement.PlayerState.Attack)
+        {
+            if (collisions.Contains(other.gameObject)) { return; }
+            collisions.Add(other.gameObject);
+            return;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (!collisions.Contains(other.gameObject)) { return; }
+        collisions.Remove(other.gameObject);
+        return;
     }
 
     public EnemyState GetEnemyState() { return state; }
