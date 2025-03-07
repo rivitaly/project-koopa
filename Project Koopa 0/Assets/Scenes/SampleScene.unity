@@ -461,7 +461,7 @@ MonoBehaviour:
   rotationSpeed: 3
   speed: 3
   range: 20
-  attackRange: 7.5
+  attackRange: 12
   originRange: 20
 --- !u!114 &257480592
 MonoBehaviour:

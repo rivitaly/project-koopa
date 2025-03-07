@@ -57,6 +57,12 @@ public class EnemyBehaviour : MonoBehaviour
         UpdateAi();
     }
 
+    IEnumerator returnToOrigin()
+    {
+        yield return new WaitForSeconds(2);
+        isReturning = false;
+    }
+
     // updates the velocity of the enemy based on if our player is close enough
     void UpdateAi()
     {
@@ -67,6 +73,7 @@ public class EnemyBehaviour : MonoBehaviour
             LookAtOrigin();
             Vector3 returnToOriginVelocity = (origin - transform.position).normalized * speed;
             rb.linearVelocity = new Vector3(returnToOriginVelocity.x, rb.linearVelocity.y, returnToOriginVelocity.z);
+            StartCoroutine(returnToOrigin());
         }
         else if (IsPlayerWithinRange() && !isReturning)
         {
