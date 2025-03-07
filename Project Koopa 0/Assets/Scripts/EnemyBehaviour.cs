@@ -3,6 +3,7 @@ using UnityEngine;
 public class EnemyBehaviour : MonoBehaviour
 {
     [SerializeField] private GameObject player;
+    PlayerMovement playerMovement;
     Rigidbody rb;
     public float rotationSpeed;
     public float speed;
@@ -25,8 +26,10 @@ public class EnemyBehaviour : MonoBehaviour
     // sets rigidbody component on run
     void Start()
     {
+        state = EnemyState.Idle;
         rb = GetComponent<Rigidbody>();
         origin = transform.position;
+        playerMovement = player.GetComponent<PlayerMovement>();
     }
 
     // updates direction to player, velocity of our enemy, and where it looks at based on the direction to player
@@ -120,5 +123,12 @@ public class EnemyBehaviour : MonoBehaviour
             state = EnemyState.Chase;
         else
             state = EnemyState.Idle;
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Sword") && playerMovement.GetPlayerState() == PlayerMovement.PlayerState.Attack)
+        {
+            Destroy(gameObject);
+        }
     }
 }

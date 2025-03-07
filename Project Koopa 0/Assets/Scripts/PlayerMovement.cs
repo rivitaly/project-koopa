@@ -169,7 +169,7 @@ public class PlayerMovement : MonoBehaviour
         // play animation
         // wait for animation to finish playing
         // set is attacking to false
-        isAttacking = false;
+        //isAttacking = false;
     }
 
     // changes the state our player is in, we will use this state to determine what animation to play for our character
@@ -186,7 +186,6 @@ public class PlayerMovement : MonoBehaviour
             state = PlayerState.Walk;
         else if (onGround)
             state = PlayerState.Idle;
-        
     }
 
     public PlayerState GetPlayerState() { return state; }
