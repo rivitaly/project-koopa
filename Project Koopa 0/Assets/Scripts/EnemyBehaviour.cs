@@ -4,8 +4,10 @@ public class EnemyBehaviour : MonoBehaviour
 {
     [SerializeField] private GameObject player;
     Rigidbody rb;
+    public float rotationSpeed;
     public float speed;
     public float range;
+    public float attackRange;
     Vector3 currentVelocity;
     Vector3 directionToPlayer;
 
@@ -20,6 +22,7 @@ public class EnemyBehaviour : MonoBehaviour
     {
         directionToPlayer = player.transform.position - transform.position;
         currentVelocity = directionToPlayer.normalized * speed;
+        transform.rotation = Quaternion.Euler(0, transform.rotation.eulerAngles.y, 0);
     }
 
     // performs physics and ai based updates
@@ -39,7 +42,6 @@ public class EnemyBehaviour : MonoBehaviour
         else
         {
             rb.linearVelocity = new Vector3(0, rb.linearVelocity.y, 0);
-            transform.rotation = Quaternion.Euler(0, transform.rotation.eulerAngles.y, 0);
         }
     }
 
@@ -50,10 +52,16 @@ public class EnemyBehaviour : MonoBehaviour
         return (distanceToPlayer < range);
     }
 
+    bool IsPlayerWithinAttackRange()
+    {
+        float distanceToPlayer = Vector3.Distance(player.transform.position, transform.position);
+        return (distanceToPlayer < attackRange);
+    }
+
     // updates our enemy look so it looks at our player
     void LookAtPlayer() 
     {
-        transform.rotation = Quaternion.LookRotation(directionToPlayer);
-        transform.rotation = Quaternion.Euler(0, transform.rotation.eulerAngles.y, 0);
+        Quaternion targetRotation = Quaternion.LookRotation(directionToPlayer.normalized);
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
     }
 }
