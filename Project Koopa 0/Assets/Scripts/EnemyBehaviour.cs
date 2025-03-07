@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class EnemyBehaviour : MonoBehaviour
@@ -9,6 +10,7 @@ public class EnemyBehaviour : MonoBehaviour
     public float speed;
     public float range;
     public float attackRange;
+    float attackCooldown = 5;
     bool isChasing = false;
     bool isAttacking = false;
     Vector3 currentVelocity;
@@ -57,9 +59,9 @@ public class EnemyBehaviour : MonoBehaviour
                 if (!isAttacking)
                 {
                     if (isChasing) { isChasing = false; }
-                    isAttacking = true;
                     rb.linearVelocity = Vector3.zero;
-                    //after attack, isAttacking = false;
+                    isAttacking = true;
+                    //StartCoroutine(nameof(Attack));
                 }
                 LookAtPlayer();
             }
@@ -114,6 +116,16 @@ public class EnemyBehaviour : MonoBehaviour
         Quaternion targetRotation = Quaternion.LookRotation((origin - transform.position).normalized);
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
     }
+
+    IEnumerator Attack()
+    {
+        //Do attack stuff
+
+        //Wait
+        yield return new WaitForSeconds(attackCooldown);
+        isAttacking = true;
+    }
+
     void StateMachine()
     {
         if (isAttacking)

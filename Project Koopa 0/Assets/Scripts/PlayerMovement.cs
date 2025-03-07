@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -38,7 +39,7 @@ public class PlayerMovement : MonoBehaviour
     public float health;
     public float damage;
     public float stamina; // optional
-    public float attackCooldown;  // optional
+    public float attackCooldown;
 
     // player input
     float xInput;
@@ -179,7 +180,11 @@ public class PlayerMovement : MonoBehaviour
     public void OnAttack() 
     {
         // set is attacking to true
-        if (!isAttacking) { isAttacking = true; }
+        if(!isAttacking)
+        {
+            isAttacking = true;
+            StartCoroutine(nameof(Attack));
+        }
         // swing batter batter swing 
         // control collision
         // play animation
@@ -202,6 +207,12 @@ public class PlayerMovement : MonoBehaviour
             state = PlayerState.Walk;
         else if (onGround)
             state = PlayerState.Idle;
+    }
+
+    IEnumerator Attack()
+    {
+        yield return new WaitForSeconds(attackCooldown);
+        isAttacking = false;
     }
 
     public PlayerState GetPlayerState() { return state; }

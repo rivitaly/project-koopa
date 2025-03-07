@@ -33,7 +33,7 @@ public class PlayerAnimation : MonoBehaviour
         //Switch currentAnimation to playerState
         currentAnimation = playerState;
         //Switch animations
-        print("Current State: " + currentAnimation);
+        //print("Current State: " + currentAnimation);
         //Need to do
 
     }
