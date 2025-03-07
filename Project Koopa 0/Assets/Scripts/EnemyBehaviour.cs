@@ -14,8 +14,6 @@ public class EnemyBehaviour : MonoBehaviour
     Vector3 currentVelocity;
     Vector3 directionToPlayer;
     Vector3 origin;
-    EnemyState state;
-
     public enum EnemyState
     {
         Idle = 1,
@@ -23,6 +21,7 @@ public class EnemyBehaviour : MonoBehaviour
         Attack = 3
     }
 
+    EnemyState state;
     // sets rigidbody component on run
     void Start()
     {
@@ -131,4 +130,6 @@ public class EnemyBehaviour : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
+    public EnemyState GetEnemyState() { return state; }
 }
