@@ -15,6 +15,7 @@ public class EnemyBehaviour : MonoBehaviour
     float attackCooldown = 5;
     bool isChasing = false;
     bool isAttacking = false;
+    bool canAttack = true;
     bool isReturning = false;
     Vector3 currentVelocity;
     Vector3 directionToPlayer;
@@ -71,11 +72,12 @@ public class EnemyBehaviour : MonoBehaviour
         {
             if (IsPlayerWithinAttackRange())
             {
-                if (!isAttacking)
+                if (!isAttacking && canAttack)
                 {
                     if (isChasing) { isChasing = false; }
                     rb.linearVelocity = new Vector3(0, rb.linearVelocity.y, 0);
                     isAttacking = true;
+                    canAttack = false;
                     StartCoroutine(nameof(Attack));
                 }
                 rb.constraints = RigidbodyConstraints.FreezePosition | RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
@@ -145,10 +147,14 @@ public class EnemyBehaviour : MonoBehaviour
     IEnumerator Attack()
     {
         //Do attack stuff
+        float waitTime = 2f;
+        yield return new WaitForSeconds(waitTime);
+        isChasing = true;
+        isAttacking = false;
 
         //Wait
-        yield return new WaitForSeconds(attackCooldown);
-        isAttacking = false;
+        yield return new WaitForSeconds(attackCooldown - waitTime);
+        canAttack = true;
     }
 
     void StateMachine()
