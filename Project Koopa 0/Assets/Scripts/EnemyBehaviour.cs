@@ -1,4 +1,3 @@
-using NUnit.Framework;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,9 +11,11 @@ public class EnemyBehaviour : MonoBehaviour
     public float speed;
     public float range;
     public float attackRange;
+    public float originRange;
     float attackCooldown = 5;
     bool isChasing = false;
     bool isAttacking = false;
+    bool isReturning = false;
     Vector3 currentVelocity;
     Vector3 directionToPlayer;
     Vector3 origin;
@@ -58,14 +59,22 @@ public class EnemyBehaviour : MonoBehaviour
     // updates the velocity of the enemy based on if our player is close enough
     void UpdateAi()
     {
-        if (IsPlayerWithinRange())
+        if (IsOutOfOriginRange())
+        {
+            if (isReturning) { return; }
+            isReturning = true;
+            LookAtOrigin();
+            Vector3 returnToOriginVelocity = (origin - transform.position).normalized * speed;
+            rb.linearVelocity = new Vector3(returnToOriginVelocity.x, rb.linearVelocity.y, returnToOriginVelocity.z);
+        }
+        else if (IsPlayerWithinRange() && !isReturning)
         {
             if (IsPlayerWithinAttackRange())
             {
                 if (!isAttacking)
                 {
                     if (isChasing) { isChasing = false; }
-                    rb.linearVelocity = Vector3.zero;
+                    rb.linearVelocity = new Vector3(0, rb.linearVelocity.y, 0);
                     isAttacking = true;
                     StartCoroutine(nameof(Attack));
                 }
@@ -77,25 +86,26 @@ public class EnemyBehaviour : MonoBehaviour
                 if (!isAttacking)
                 {
                     rb.linearVelocity = new Vector3(currentVelocity.x, rb.linearVelocity.y, currentVelocity.z);
-                    LookAtPlayer();
                     isChasing = true;
                 }
+                LookAtPlayer();
                 rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
             }
         }
         else
         {
             if (isAttacking) { return; }
-            if (transform.position == origin)
+            if (Vector3.Distance(transform.position,origin) < 0.1)
             {
-                rb.linearVelocity = Vector3.zero;
+                isReturning = false;
+                rb.linearVelocity = new Vector3(0, rb.linearVelocity.y, 0);
                 if(isChasing) { isChasing = false; }
             }
             else
             {
                 LookAtOrigin();
                 Vector3 returnToOriginVelocity = (origin - transform.position).normalized * speed;
-                rb.linearVelocity = new Vector3(returnToOriginVelocity.x, 0f, returnToOriginVelocity.z);
+                rb.linearVelocity = new Vector3(returnToOriginVelocity.x, rb.linearVelocity.y, returnToOriginVelocity.z);
             }
         }
     }
@@ -111,6 +121,12 @@ public class EnemyBehaviour : MonoBehaviour
     {
         float distanceToPlayer = Vector3.Distance(player.transform.position, transform.position);
         return (distanceToPlayer < attackRange);
+    }
+
+    bool IsOutOfOriginRange()
+    {
+        float distanceToOrigin = Vector3.Distance(origin, transform.position);
+        return distanceToOrigin > originRange;
     }
 
     // updates our enemy look so it looks at our player
