@@ -10,11 +10,13 @@ public class EnemyBehaviour : MonoBehaviour
     public float attackRange;
     Vector3 currentVelocity;
     Vector3 directionToPlayer;
+    Vector3 origin;
 
     // sets rigidbody component on run
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        origin = transform.position;
     }
 
     // updates direction to player, velocity of our enemy, and where it looks at based on the direction to player
@@ -41,7 +43,11 @@ public class EnemyBehaviour : MonoBehaviour
         }
         else
         {
-            rb.linearVelocity = new Vector3(0, rb.linearVelocity.y, 0);
+            Vector3 returnToOriginVelocity = (origin - transform.position).normalized * speed;
+            rb.linearVelocity = new Vector3(returnToOriginVelocity.x, returnToOriginVelocity.y, returnToOriginVelocity.z);
+            if (transform.position == origin)
+                rb.linearVelocity = Vector3.zero;
+            LookAtOrigin();
         }
     }
 
@@ -62,6 +68,12 @@ public class EnemyBehaviour : MonoBehaviour
     void LookAtPlayer() 
     {
         Quaternion targetRotation = Quaternion.LookRotation(directionToPlayer.normalized);
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
+    }
+
+    void LookAtOrigin()
+    {
+        Quaternion targetRotation = Quaternion.LookRotation((origin - transform.position).normalized);
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
     }
 }

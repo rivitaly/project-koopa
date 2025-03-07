@@ -451,8 +451,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 854586687}
-  speed: 2
+  rotationSpeed: 3
+  speed: 3
   range: 20
+  attackRange: 0
 --- !u!1 &277970674
 GameObject:
   m_ObjectHideFlags: 0
@@ -922,12 +924,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4d132a9d61ef2e4bb4bbc5e469a771e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animations:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  animator: {fileID: 0}
+  animationStates: 0000000000
 --- !u!1 &913512150
 GameObject:
   m_ObjectHideFlags: 3
