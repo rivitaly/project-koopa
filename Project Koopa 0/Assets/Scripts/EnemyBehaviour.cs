@@ -8,9 +8,19 @@ public class EnemyBehaviour : MonoBehaviour
     public float speed;
     public float range;
     public float attackRange;
+    bool isChasing = false;
+    bool isAttacking = false;
     Vector3 currentVelocity;
     Vector3 directionToPlayer;
     Vector3 origin;
+    EnemyState state;
+
+    public enum EnemyState
+    {
+        Idle = 1,
+        Chase = 2,
+        Attack = 3
+    }
 
     // sets rigidbody component on run
     void Start()
@@ -25,6 +35,8 @@ public class EnemyBehaviour : MonoBehaviour
         directionToPlayer = player.transform.position - transform.position;
         currentVelocity = directionToPlayer.normalized * speed;
         transform.rotation = Quaternion.Euler(0, transform.rotation.eulerAngles.y, 0);
+
+        StateMachine();
     }
 
     // performs physics and ai based updates
@@ -38,16 +50,40 @@ public class EnemyBehaviour : MonoBehaviour
     {
         if (IsPlayerWithinRange())
         {
-            rb.linearVelocity = new Vector3(currentVelocity.x, rb.linearVelocity.y, currentVelocity.z);
-            LookAtPlayer();
+            if (IsPlayerWithinAttackRange())
+            {
+                if (!isAttacking)
+                {
+                    if (isChasing) { isChasing = false; }
+                    isAttacking = true;
+                    rb.linearVelocity = Vector3.zero;
+                    //after attack, isAttacking = false;
+                }
+                LookAtPlayer();
+            }
+            else
+            {
+                if (!isAttacking)
+                {
+                    rb.linearVelocity = new Vector3(currentVelocity.x, rb.linearVelocity.y, currentVelocity.z);
+                    LookAtPlayer();
+                    isChasing = true;
+                }
+            }
         }
         else
         {
-            Vector3 returnToOriginVelocity = (origin - transform.position).normalized * speed;
-            rb.linearVelocity = new Vector3(returnToOriginVelocity.x, returnToOriginVelocity.y, returnToOriginVelocity.z);
             if (transform.position == origin)
+            {
                 rb.linearVelocity = Vector3.zero;
-            LookAtOrigin();
+                if(isChasing) { isChasing = false; }
+            }
+            else
+            {
+                LookAtOrigin();
+                Vector3 returnToOriginVelocity = (origin - transform.position).normalized * speed;
+                rb.linearVelocity = new Vector3(returnToOriginVelocity.x, 0f, returnToOriginVelocity.z);
+            }
         }
     }
 
@@ -75,5 +111,14 @@ public class EnemyBehaviour : MonoBehaviour
     {
         Quaternion targetRotation = Quaternion.LookRotation((origin - transform.position).normalized);
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
+    }
+    void StateMachine()
+    {
+        if (isAttacking)
+            state = EnemyState.Attack;
+        else if (isChasing)
+            state = EnemyState.Chase;
+        else
+            state = EnemyState.Idle;
     }
 }
