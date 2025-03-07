@@ -38,6 +38,7 @@ public class PlayerMovement : MonoBehaviour
     public float health;
     public float damage;
     public float stamina; // optional
+    public float attackCooldown;  // optional
 
     // player input
     float xInput;
@@ -55,19 +56,34 @@ public class PlayerMovement : MonoBehaviour
     {
         GroundChecks();
         
-        if(Input.GetButton("Jump") && !jumping && onGround)
+        /*if(Input.GetButton("Jump") && !jumping && onGround)
+        {
+            jumping = true;
+            Jump();
+            Invoke(nameof(ResetJump), jumpCooldown);
+        }*/
+
+        /*if (Input.GetButtonDown("Run"))
+        {
+            running = !running;
+        }*/
+
+        StateMachine();
+    }
+
+    void OnJump()
+    {
+        if(!isAttacking && !jumping && onGround)
         {
             jumping = true;
             Jump();
             Invoke(nameof(ResetJump), jumpCooldown);
         }
+    }
 
-        if (Input.GetButtonDown("Run"))
-        {
-            running = !running;
-        }
-
-        StateMachine();
+    void OnSprint()
+    {
+        running = !running;
     }
 
     // updates physics/ai based movement/info
