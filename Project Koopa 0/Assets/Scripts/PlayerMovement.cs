@@ -56,19 +56,6 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         GroundChecks();
-        
-        /*if(Input.GetButton("Jump") && !jumping && onGround)
-        {
-            jumping = true;
-            Jump();
-            Invoke(nameof(ResetJump), jumpCooldown);
-        }*/
-
-        /*if (Input.GetButtonDown("Run"))
-        {
-            running = !running;
-        }*/
-
         StateMachine();
     }
 
@@ -209,7 +196,7 @@ public class PlayerMovement : MonoBehaviour
             state = PlayerState.Run;
         else if ((zInput != 0.0 || xInput != 0.0) && onGround)
             state = PlayerState.Walk;
-        else if (onGround)
+        else
             state = PlayerState.Idle;
     }
 

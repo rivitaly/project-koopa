@@ -10,13 +10,12 @@ public class PlayerAnimation : MonoBehaviour
     //I'm not too sure if AnimationClip is what to use, need to update
     Animator animator;
     PlayerMovement.PlayerState currentAnimation = PlayerMovement.PlayerState.Idle;   //Default
-    [SerializeField] bool[] animationStates = new bool[5];
+  
     void Start()
     {
         playerObj = transform.Find("PlayerObj").gameObject;
         playerMovement = GetComponent<PlayerMovement>();
         animator = playerObj.GetComponent<Animator>();
-
     }
 
     void Update()
@@ -28,9 +27,13 @@ public class PlayerAnimation : MonoBehaviour
         if (playerState == currentAnimation) return;
 
         //Set animator's bool state
+        animator.SetBool(currentAnimation.ToString(), false);
+        animator.SetBool(playerState.ToString(), true);
 
         //Switch currentAnimation to playerState
         currentAnimation = playerState;
+
+       
         //Switch animations
         //print("Current State: " + currentAnimation);
         //Need to do

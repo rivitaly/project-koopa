@@ -557,7 +557,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 438249123}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0.0063751093, y: -0.006235478, z: 0.000039753435, w: 0.99996024}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -902,13 +902,14 @@ MonoBehaviour:
   runMultiplier: 1.5
   groundDrag: 5
   jumpForce: 12
-  jumpCooldown: 0.25
+  jumpCooldown: 0.8
   airChange: 0.4
   gravityMultiplier: 15
   playerHeight: 1.3
   whatIsGround:
     serializedVersion: 2
     m_Bits: 1024
+  isAttacking: 0
   health: 0
   damage: 0
   stamina: 0
@@ -925,8 +926,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4d132a9d61ef2e4bb4bbc5e469a771e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 0}
-  animationStates: 0000000000
 --- !u!1 &913512150
 GameObject:
   m_ObjectHideFlags: 3
