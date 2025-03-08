@@ -33,7 +33,7 @@ public class Orb : MonoBehaviour
         
     }
 
-    private void OnTriggerEnter(Collision other)
+    private void OnCollisionEnter(Collision other)
     {
         GameObject explosive = Instantiate(explosion, transform.position, Quaternion.identity);
         Destroy(explosive, 1f);
