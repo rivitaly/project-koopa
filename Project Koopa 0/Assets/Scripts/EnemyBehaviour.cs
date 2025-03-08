@@ -62,7 +62,7 @@ public class EnemyBehaviour : MonoBehaviour
         UpdateAi();
     }
 
-    IEnumerator returnToOrigin()
+    IEnumerator ReturnToOrigin()
     {
         yield return new WaitForSeconds(2);
         isReturning = false;
@@ -78,14 +78,14 @@ public class EnemyBehaviour : MonoBehaviour
             LookAtOrigin();
             Vector3 returnToOriginVelocity = (origin - transform.position).normalized * speed;
             rb.linearVelocity = new Vector3(returnToOriginVelocity.x, rb.linearVelocity.y, returnToOriginVelocity.z);
-            StartCoroutine(returnToOrigin());
+            StartCoroutine(ReturnToOrigin());
         }
         else if (IsPlayerWithinRange() && !isReturning)
         {
             if (IsPlayerWithinAttackRange())
             {
                 if (!isAttacking && canAttack)
-                {
+                { 
                     if (!playerHealth.canTakeDamage) { return; }
                     if (isChasing) { isChasing = false; }
                     rb.linearVelocity = new Vector3(0, rb.linearVelocity.y, 0);

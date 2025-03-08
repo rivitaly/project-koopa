@@ -46,9 +46,9 @@ public class PlayerHealth : MonoBehaviour
 
     IEnumerator Damaged()
     {
-        yield return new WaitForSeconds(1.66f);
+        yield return new WaitForSeconds(1.8f);
         playerMovement.SetPlayerState(PlayerMovement.PlayerState.Idle);
-        rb.constraints = RigidbodyConstraints.None | RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
+        rb.constraints = RigidbodyConstraints.None | RigidbodyConstraints.FreezeRotation;
         yield return new WaitForSeconds(damagedStateLength);
         canTakeDamage = true;
     }
