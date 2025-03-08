@@ -36,9 +36,6 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Combat System")]
     public bool isAttacking = false;
-    public float health;
-    public float damage;
-    public float stamina; // optional
     public float attackCooldown;
 
     // player input

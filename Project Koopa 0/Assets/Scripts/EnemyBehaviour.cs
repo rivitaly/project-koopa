@@ -36,6 +36,7 @@ public class EnemyBehaviour : MonoBehaviour
     void Start()
     {
         state = EnemyState.Idle;
+        speed += Random.Range(-0.25f, 0.25f);
         rb = GetComponent<Rigidbody>();
         origin = transform.position;
         playerMovement = player.GetComponent<PlayerMovement>();
