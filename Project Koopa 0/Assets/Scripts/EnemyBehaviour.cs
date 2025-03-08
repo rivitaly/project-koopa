@@ -5,6 +5,8 @@ using UnityEngine;
 public class EnemyBehaviour : MonoBehaviour
 {
     [SerializeField] private GameObject player;
+    [SerializeField] GameObject orb;
+    [SerializeField] GameObject gem;
     PlayerMovement playerMovement;
     Rigidbody rb;
     public float rotationSpeed;
@@ -155,12 +157,17 @@ public class EnemyBehaviour : MonoBehaviour
     {
         //Do attack stuff
         float waitTime = 2f;
-        yield return new WaitForSeconds(waitTime);
+        float launch = (4 / 3) + 0.1f;
+
+        yield return new WaitForSeconds(launch);
+        Instantiate(orb, gem.transform.position, Quaternion.identity);
+
+        yield return new WaitForSeconds(waitTime - launch);
         isChasing = true;
         isAttacking = false;
 
         //Wait
-        yield return new WaitForSeconds(attackCooldown - waitTime);
+        yield return new WaitForSeconds(attackCooldown - waitTime - launch);
         canAttack = true;
     }
 
