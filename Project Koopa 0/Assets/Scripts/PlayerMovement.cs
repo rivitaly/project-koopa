@@ -11,7 +11,8 @@ public class PlayerMovement : MonoBehaviour
         Run = 1,
         Attack = 2,
         Idle = 3,
-        Jump = 4
+        Jump = 4,
+        Damaged = 5
     }
 
     [Header("Movement")]
@@ -58,7 +59,7 @@ public class PlayerMovement : MonoBehaviour
 
     void OnJump()
     {
-        if(!isAttacking && !jumping && onGround)
+        if(!isAttacking && !jumping && onGround && state != PlayerState.Damaged)
         {
             jumping = true;
             Jump();
@@ -164,7 +165,7 @@ public class PlayerMovement : MonoBehaviour
     public void OnAttack() 
     {
         // set is attacking to true
-        if (!isAttacking)
+        if (!isAttacking && state != PlayerState.Damaged)
         {
             isAttacking = true;
             StartCoroutine(nameof(Attack));
@@ -181,6 +182,8 @@ public class PlayerMovement : MonoBehaviour
     void StateMachine()
     {
         //Order of priority, should automatically no longer consider other states during isAttacking
+        if (state == PlayerState.Damaged) { return; }
+
         if (isAttacking)
             state = PlayerState.Attack;
         else if (jumping)
@@ -200,5 +203,6 @@ public class PlayerMovement : MonoBehaviour
     }
 
     public PlayerState GetPlayerState() { return state; }
+    public void SetPlayerState(PlayerState newState) { state = newState; }
 
 }

@@ -24,7 +24,6 @@ public class Orb : MonoBehaviour
         transform.up = -direction;
         rb.AddForce(direction * speed, ForceMode.Impulse);
         StartCoroutine(nameof(selfDestruct));
-        print("Orbin time");
     }
 
     // Update is called once per frame

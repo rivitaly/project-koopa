@@ -4,10 +4,11 @@ using UnityEngine.InputSystem;
 public class ThirdPersonCam : MonoBehaviour
 {
     public Transform orientation;
-    public Transform player;
+    public GameObject player;
     public Transform playerObj;
     public Rigidbody rb;
     public float rotationSpeed;
+    PlayerMovement playerMovement;
 
     private float xInput;
     private float zInput;
@@ -17,13 +18,14 @@ public class ThirdPersonCam : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         rb = GetComponent<Rigidbody>();
+        playerMovement = player.GetComponent<PlayerMovement>();
     }
 
     private void Update()
     {
-        //if (player.GetComponent<PlayerMovement>().isAttacking) { return; }
+        if (playerMovement.GetPlayerState() == PlayerMovement.PlayerState.Damaged) { return; }
         // rotates player orientation
-        Vector3 viewDirection = player.position - new Vector3(transform.position.x, player.position.y, transform.position.z);
+        Vector3 viewDirection = player.transform.position - new Vector3(transform.position.x, player.transform.position.y, transform.position.z);
         orientation.forward = viewDirection.normalized;
 
         // rotate player object

@@ -8,6 +8,7 @@ public class EnemyBehaviour : MonoBehaviour
     [SerializeField] GameObject orb;
     [SerializeField] GameObject gem;
     PlayerMovement playerMovement;
+    PlayerHealth playerHealth;
     Rigidbody rb;
     public float rotationSpeed;
     public float speed;
@@ -40,6 +41,7 @@ public class EnemyBehaviour : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         origin = transform.position;
         playerMovement = player.GetComponent<PlayerMovement>();
+        playerHealth = player.GetComponent<PlayerHealth>();
     }
 
     // updates direction to player, velocity of our enemy, and where it looks at based on the direction to player
@@ -84,11 +86,17 @@ public class EnemyBehaviour : MonoBehaviour
             {
                 if (!isAttacking && canAttack)
                 {
+                    if (!playerHealth.canTakeDamage) { return; }
                     if (isChasing) { isChasing = false; }
                     rb.linearVelocity = new Vector3(0, rb.linearVelocity.y, 0);
                     isAttacking = true;
                     canAttack = false;
                     StartCoroutine(nameof(Attack));
+                }
+                else
+                {
+                    if (!playerHealth.canTakeDamage)
+                        state = EnemyState.Idle;
                 }
                 rb.constraints = RigidbodyConstraints.FreezePosition | RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
                 LookAtPlayer();
@@ -168,7 +176,7 @@ public class EnemyBehaviour : MonoBehaviour
         isAttacking = false;
 
         //Wait
-        yield return new WaitForSeconds(attackCooldown - waitTime - launch);
+        //yield return new WaitForSeconds(attackCooldown - waitTime - launch);
         canAttack = true;
     }
 
