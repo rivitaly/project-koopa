@@ -9,17 +9,41 @@ public class PlayerHealth : MonoBehaviour
     PlayerMovement playerMovement;
     PlayerMovement.PlayerState playerState;
     Rigidbody rb;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+
+    // player health UI
+    public int numOfHearts;
+    public GameObject[] hearts;
+    public Material fullHeart;
+    public Material emptyHeart;
+
+   
     void Start()
     {
         playerMovement = GetComponent<PlayerMovement>();
         rb = GetComponent<Rigidbody>();
     }
 
-    // Update is called once per frame
+    
     void Update()
     {
-        
+        if (health > numOfHearts) 
+        {
+            health = numOfHearts;
+        }
+
+        for (int i = 0; i < hearts.Length; i++)
+        {
+            if (i < health) 
+            {
+                hearts[i].GetComponent<Renderer>().material = fullHeart;
+            }
+            else 
+            {
+                hearts[i].GetComponent<Renderer>().material = emptyHeart;
+            }
+
+            hearts[i].SetActive(i < numOfHearts);
+        }
     }
 
     private void OnCollisionEnter(Collision other)
@@ -39,6 +63,7 @@ public class PlayerHealth : MonoBehaviour
             }
             else //Dies
             {
+                health -= 1;
                 //Setup dying
             }
         }
