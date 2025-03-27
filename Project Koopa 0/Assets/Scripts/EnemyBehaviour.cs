@@ -84,19 +84,19 @@ public class EnemyBehaviour : MonoBehaviour
         {
             if (IsPlayerWithinAttackRange())
             {
-                if (!isAttacking && canAttack)
+                if (!isAttacking && canAttack && playerHealth.canTakeDamage)
                 { 
-                    if (!playerHealth.canTakeDamage) { return; }
                     if (isChasing) { isChasing = false; }
                     rb.linearVelocity = new Vector3(0, rb.linearVelocity.y, 0);
+                    if (!playerHealth.canTakeDamage) { return; }
                     isAttacking = true;
                     canAttack = false;
                     StartCoroutine(nameof(Attack));
                 }
                 else
                 {
-                    if (!playerHealth.canTakeDamage)
-                        state = EnemyState.Idle;
+                    //if (!playerHealth.canTakeDamage)
+                    //    state = EnemyState.Idle;
                 }
                 rb.constraints = RigidbodyConstraints.FreezePosition | RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
                 LookAtPlayer();
@@ -172,7 +172,7 @@ public class EnemyBehaviour : MonoBehaviour
         Instantiate(orb, gem.transform.position, Quaternion.identity);
 
         yield return new WaitForSeconds(waitTime - launch);
-        isChasing = true;
+        state = EnemyState.Idle;
         isAttacking = false;
 
         //Wait
