@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class EnemyAnimation : MonoBehaviour
 {
-    //I'm not too sure if AnimationClip is what to use, need to update
     Animator animator;
     EnemyBehaviour enemyBehaviour;
     EnemyBehaviour.EnemyState enemyState;
