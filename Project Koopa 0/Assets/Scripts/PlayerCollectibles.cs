@@ -4,27 +4,11 @@ using TMPro;
 
 public class PlayerCollectibles : MonoBehaviour
 {
-    public int collectibleCount;
     public TextMeshProUGUI gemsCollected;
     void Start()
     {
-        collectibleCount = 0;
-        gemsCollected.text = collectibleCount.ToString();
+        gemsCollected.text = '0'.ToString();
     }
 
-    
-    void Update()
-    {
-        
-    }
-
-    private void OnTriggerEnter(Collider collision)
-    {
-        if (collision.CompareTag("Gem"))
-        { 
-            collectibleCount++;
-            gemsCollected.text = collectibleCount.ToString();
-            Destroy(collision.gameObject);
-        }
-    }
+    public void setCount(int count) { gemsCollected.text = count.ToString(); }
 }
