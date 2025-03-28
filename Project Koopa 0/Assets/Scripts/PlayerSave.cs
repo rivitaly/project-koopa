@@ -78,4 +78,19 @@ public class PlayerSave : MonoBehaviour
         yield return new WaitForSeconds(1);
         Destroy(collectible);
     }
+
+    public (string, string, bool) GetCollectible(int index)
+    {
+        if(index >= collectibles.Length || index < 0) { Debug.LogError("Invalid index value"); return ("", "", false); }
+        return (collectibles[index].name, collectibles[index].description, collectibles[index].collected);
+    }
+
+    /* How to use GetCollectible:
+     * 
+     * string tempName;
+     * string tempDescription;
+     * bool tempBoolean
+     * 
+     * (tempName, tempDescription, tempBoolean) = GetCollectible(i);
+     */
 }
