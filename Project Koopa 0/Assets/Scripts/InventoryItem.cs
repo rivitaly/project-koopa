@@ -1,16 +1,38 @@
+using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class InventoryItem : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public Image itemImage;
+    public Image borderImage;
+    public event Action<InventoryItem> OnItemClicked;
+    bool empty = true;
+
+    public void Start()
     {
-        
+        Reset();
+        Deselect();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Reset()
     {
-        
+        itemImage.gameObject.SetActive(false);
+        empty = true;
     }
+
+    public void Deselect() 
+    {
+        borderImage.enabled = false;
+    }
+
+    public void Set(Sprite sprite)
+    { 
+        itemImage.gameObject.SetActive(true);
+        itemImage.sprite = sprite;
+        empty = false;
+    }
+
+
 }
+
