@@ -12,7 +12,7 @@ public class PlayerSave : MonoBehaviour
         public bool collected;
     }
 
-    Collectible[] collectibles = 
+    Collectible[] collectibles = new Collectible[]
     {
         new Collectible{name = "", description = "", collected = false},
         new Collectible{name = "", description = "", collected = false},

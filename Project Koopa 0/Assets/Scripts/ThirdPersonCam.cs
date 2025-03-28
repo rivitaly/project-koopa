@@ -10,18 +10,16 @@ public class ThirdPersonCam : MonoBehaviour
     public float rotationSpeed;
     PlayerMovement playerMovement;
 
-    private float xInput;
-    private float zInput;
+    float xInput;
+    float zInput;
 
-    private void Start()
+    void Start()
     {
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
         rb = GetComponent<Rigidbody>();
         playerMovement = player.GetComponent<PlayerMovement>();
     }
 
-    private void Update()
+    void Update()
     {
         if (playerMovement.GetPlayerState() == PlayerMovement.PlayerState.Damaged) { return; }
         // rotates player orientation

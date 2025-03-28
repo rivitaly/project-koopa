@@ -186,7 +186,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (isAttacking)
             state = PlayerState.Attack;
-        else if (jumping)
+        else if (jumping || !onGround)
             state = PlayerState.Jump;
         else if ((zInput != 0.0 || xInput != 0.0) && onGround && running)
             state = PlayerState.Run;

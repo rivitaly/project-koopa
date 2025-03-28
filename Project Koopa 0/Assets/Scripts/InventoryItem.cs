@@ -32,6 +32,10 @@ public class InventoryItem : MonoBehaviour
         itemImage.sprite = sprite;
         empty = false;
     }
+    public void Select() 
+    {
+        borderImage.enabled = true;
+    }
 
 
 }

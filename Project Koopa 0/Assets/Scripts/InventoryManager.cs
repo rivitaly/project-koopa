@@ -5,6 +5,7 @@ public class InventoryManager : MonoBehaviour
 {
     public InventoryPage inventory;
     public int inventorySize = 21;
+    public bool isInventoryOpen = false;
 
     void Start()
     {
@@ -15,10 +16,12 @@ public class InventoryManager : MonoBehaviour
         if (inventory.isActiveAndEnabled == false)
         {
             inventory.ShowObject();
+            isInventoryOpen = true;
         }
         else
         { 
             inventory.HideObject();
+            isInventoryOpen = false;
         }
     }
 }
