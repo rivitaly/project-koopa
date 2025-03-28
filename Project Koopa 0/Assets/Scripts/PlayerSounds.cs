@@ -4,7 +4,6 @@ public class PlayerSounds : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
-    [SerializeField] private Camera cam;
     [SerializeField] private AudioClip[] sounds = new AudioClip[3];
     private AudioSource source;
 
