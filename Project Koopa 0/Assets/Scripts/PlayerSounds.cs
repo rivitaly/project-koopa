@@ -4,7 +4,7 @@ public class PlayerSounds : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
-    [SerializeField] private AudioClip[] sounds = new AudioClip[3];
+    [SerializeField] private AudioClip[] sounds = new AudioClip[4];
     private AudioSource source;
 
     PlayerMovement playerMovement;
@@ -27,7 +27,12 @@ public class PlayerSounds : MonoBehaviour
         if (playerState == currentState) return;
 
         //Set sound
-        if(playerState == PlayerMovement.PlayerState.Walk || playerState == PlayerMovement.PlayerState.Run)
+        if(playerState == PlayerMovement.PlayerState.Damaged)
+        {
+            source.clip = sounds[3];
+            source.loop = false;
+        }
+        else if(playerState == PlayerMovement.PlayerState.Walk || playerState == PlayerMovement.PlayerState.Run)
         {
             source.clip = sounds[0];
             source.loop = true;
