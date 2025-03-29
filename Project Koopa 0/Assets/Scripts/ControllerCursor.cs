@@ -93,7 +93,7 @@ public class ControllerCursor : MonoBehaviour
         InputState.Change(controllerMouse.delta, stickValue);
 
         //Gets button pressed
-        bool buttonPressed = Gamepad.current.aButton.IsPressed();
+        bool buttonPressed = Gamepad.current.buttonSouth.IsPressed();
         if (previousState != buttonPressed) //check previous button state
         {
             controllerMouse.CopyState<MouseState>(out var mouseState); //gets mouse state from the Virtual Mouse

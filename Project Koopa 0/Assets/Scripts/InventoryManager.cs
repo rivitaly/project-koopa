@@ -7,6 +7,7 @@ public class InventoryManager : MonoBehaviour
     public InventoryPage inventory;
     public int inventorySize = 21;
     public GameObject gamepadCursor;
+    public GameObject cursor;
     public bool isInventoryOpen = false;
 
     void Start()
@@ -23,6 +24,7 @@ public class InventoryManager : MonoBehaviour
             isInventoryOpen = true;
             Cursor.visible = true;
             gamepadCursor.SetActive(true);
+            cursor.SetActive(true);
         }
         else
         { 
@@ -30,6 +32,7 @@ public class InventoryManager : MonoBehaviour
             isInventoryOpen = false;
             Cursor.visible = false;
             gamepadCursor.SetActive(false);
+            cursor.SetActive(false);
         }
     }
 }
