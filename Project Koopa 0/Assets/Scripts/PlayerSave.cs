@@ -82,7 +82,7 @@ public class PlayerSave : MonoBehaviour
         //Play visual effect
 
         //Play sound
-
+        collectible.GetComponent<AudioSource>().Play();
         yield return new WaitForSeconds(1);
         Destroy(collectible);
     }
