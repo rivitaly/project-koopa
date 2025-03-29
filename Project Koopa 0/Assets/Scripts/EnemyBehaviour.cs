@@ -15,7 +15,7 @@ public class EnemyBehaviour : MonoBehaviour
     public float range;
     public float attackRange;
     public float originRange;
-    float attackCooldown = 5;
+    //float attackCooldown = 5;
     bool isChasing = false;
     bool isAttacking = false;
     bool canAttack = true;
@@ -33,7 +33,8 @@ public class EnemyBehaviour : MonoBehaviour
     List<GameObject> collisions = new List<GameObject>();
 
     EnemyState state;
-    // sets rigidbody component on run
+    
+    //Initializes important values needed throughout code
     void Start()
     {
         state = EnemyState.Idle;
@@ -44,49 +45,52 @@ public class EnemyBehaviour : MonoBehaviour
         playerHealth = player.GetComponent<PlayerHealth>();
     }
 
-    // updates direction to player, velocity of our enemy, and where it looks at based on the direction to player
     void Update()
     {
+        //If the player has hit them atleast once then destroy enemy
         if (collisions.Count > 0) { Destroy(gameObject); }
 
+        //Updates parameters for tracking the player
         directionToPlayer = player.transform.position - transform.position;
         currentVelocity = directionToPlayer.normalized * speed;
         transform.rotation = Quaternion.Euler(0, transform.rotation.eulerAngles.y, 0);
 
+        //Updates the enemy's state
         StateMachine();
     }
 
-    // performs physics and ai based updates
+    //Performs physics based updates for the enemy AI
     void FixedUpdate()
     {
         UpdateAi();
     }
 
+    //Cooldown to wait when enemy needs to get back in range
     IEnumerator ReturnToOrigin()
     {
         yield return new WaitForSeconds(2);
         isReturning = false;
     }
 
-    // updates the velocity of the enemy based on if our player is close enough
+    //Updates the enemy based on player conditions
     void UpdateAi()
     {
-        if (IsOutOfOriginRange())
+        if (IsOutOfOriginRange())   //If enemy is too far away from where it started, ignore player and begin moving back
         {
-            if (isReturning) { return; }
+            if (isReturning) { return; }    //If in process of returning, ignore rest of code
             isReturning = true;
             LookAtOrigin();
             Vector3 returnToOriginVelocity = (origin - transform.position).normalized * speed;
             rb.linearVelocity = new Vector3(returnToOriginVelocity.x, rb.linearVelocity.y, returnToOriginVelocity.z);
             StartCoroutine(ReturnToOrigin());
         }
-        else if (IsPlayerWithinRange() && !isReturning)
+        else if (IsPlayerWithinRange() && !isReturning) //If enemy can see player and isn't preoccupied
         {
-            if (IsPlayerWithinAttackRange())
+            if (IsPlayerWithinAttackRange())    //If is range to attack
             {
-                if (!isAttacking && canAttack && playerHealth.canTakeDamage)
+                if (!isAttacking && canAttack && playerHealth.canTakeDamage)    //Makes sure enemy isn't already attacking + cooldown from successful previous attack
                 { 
-                    if (isChasing) { isChasing = false; }
+                    if (isChasing) { isChasing = false; }   //State update
                     rb.linearVelocity = new Vector3(0, rb.linearVelocity.y, 0);
                     if (!playerHealth.canTakeDamage) { return; }
                     isAttacking = true;
@@ -98,30 +102,31 @@ public class EnemyBehaviour : MonoBehaviour
                     //if (!playerHealth.canTakeDamage)
                     //    state = EnemyState.Idle;
                 }
+                //Rotates enemy on spot to make player avoid attack easier
                 rb.constraints = RigidbodyConstraints.FreezePosition | RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
                 LookAtPlayer();
             }
-            else
+            else   //If player detected but not within attack range
             {
-                if (!isAttacking)
+                if (!isAttacking)   //If enemy wasn't attacking while player is only in view, set state
                 {
                     rb.linearVelocity = new Vector3(currentVelocity.x, rb.linearVelocity.y, currentVelocity.z);
                     isChasing = true;
                 }
                 LookAtPlayer();
-                rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
+                rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;   //Allows movement, correct rotation parameters
             }
         }
-        else
+        else   //If player is not within range
         {
-            if (isAttacking) { return; }
-            if (Vector3.Distance(transform.position,origin) < 0.1)
+            if (isAttacking) { return; }    //If still in the state of attacking, skip code
+            if (Vector3.Distance(transform.position,origin) < 0.1)  //If enemy back to its location
             {
                 isReturning = false;
                 rb.linearVelocity = new Vector3(0, rb.linearVelocity.y, 0);
-                if(isChasing) { isChasing = false; }
+                if(isChasing) { isChasing = false; }    //Set enemy to idle
             }
-            else
+            else   //Return back to enemy's origin
             {
                 LookAtOrigin();
                 Vector3 returnToOriginVelocity = (origin - transform.position).normalized * speed;
@@ -130,7 +135,6 @@ public class EnemyBehaviour : MonoBehaviour
         }
     }
 
-    // updates if our player is within range
     bool IsPlayerWithinRange() 
     {
         float distanceToPlayer = Vector3.Distance(player.transform.position, transform.position);
@@ -143,34 +147,39 @@ public class EnemyBehaviour : MonoBehaviour
         return (distanceToPlayer < attackRange);
     }
 
+    //Determines if enemy is too far away from where it started
     bool IsOutOfOriginRange()
     {
         float distanceToOrigin = Vector3.Distance(origin, transform.position);
         return distanceToOrigin > originRange;
     }
 
-    // updates our enemy look so it looks at our player
+    //Sets enemy to partially rotate towards player
     void LookAtPlayer() 
     {
         Quaternion targetRotation = Quaternion.LookRotation(directionToPlayer.normalized);
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
     }
 
+    //Sets enemy to partially rotate back towards where it started
     void LookAtOrigin()
     {
         Quaternion targetRotation = Quaternion.LookRotation((origin - transform.position).normalized);
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
     }
 
+    //Timing function for the attack
     IEnumerator Attack()
     {
         //Do attack stuff
         float waitTime = 2f;
         float launch = (4 / 3) + 0.1f;
 
+        //Spawn orb
         yield return new WaitForSeconds(launch);
         Instantiate(orb, gem.transform.position, Quaternion.identity);
 
+        //Finishes attack
         yield return new WaitForSeconds(waitTime - launch);
         state = EnemyState.Idle;
         isAttacking = false;
@@ -180,6 +189,7 @@ public class EnemyBehaviour : MonoBehaviour
         canAttack = true;
     }
 
+    //Sets enemy states based on conditions, used for animation + sounds additionally
     void StateMachine()
     {
         if (isAttacking)
@@ -189,21 +199,30 @@ public class EnemyBehaviour : MonoBehaviour
         else
             state = EnemyState.Idle;
     }
+
+    //Check if attacked
     private void OnTriggerEnter(Collider other)
     {
+        //If was hit by sword while player was in attack state
         if (other.gameObject.CompareTag("Sword") && playerMovement.GetPlayerState() == PlayerMovement.PlayerState.Attack)
         {
+            //If the collision was already detected then skip code
             if (collisions.Contains(other.gameObject)) { return; }
+            //Add collision otherwise
             collisions.Add(other.gameObject);
             return;
         }
     }
 
+    //Check if attack continuously collides
     private void OnTriggerStay(Collider other)
     {
+        //If was hit by sword while player was in attack state
         if (other.gameObject.CompareTag("Sword") && playerMovement.GetPlayerState() == PlayerMovement.PlayerState.Attack)
         {
+            //If the collision was already detected then skip code
             if (collisions.Contains(other.gameObject)) { return; }
+            //Add collision otherwise
             collisions.Add(other.gameObject);
             return;
         }

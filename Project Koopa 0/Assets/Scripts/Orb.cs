@@ -13,25 +13,21 @@ public class Orb : MonoBehaviour
     public float lifetime;
     Vector3 direction;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         player = GameObject.Find("Player");
         rb = GetComponent<Rigidbody>();
         direction = (player.transform.position - transform.position).normalized;
         direction.y = 0;
+        //Make orb direction towards player
         transform.LookAt(direction);
         transform.up = -direction;
+        //Make orb go towards player, only set once for easy gameplay
         rb.AddForce(direction * speed, ForceMode.Impulse);
         StartCoroutine(nameof(selfDestruct));
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
+    //When hitting anything whether its a wall or player, explode and destruct itself
     private void OnCollisionEnter(Collision other)
     {
         GameObject explosive = Instantiate(explosion, transform.position, Quaternion.identity);
@@ -39,6 +35,7 @@ public class Orb : MonoBehaviour
         Destroy(gameObject);
     }
 
+    //Timer function to deinstantiate itself to not hog up hierarchy
     IEnumerator selfDestruct()
     {
         yield return new WaitForSeconds(lifetime);

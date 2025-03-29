@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
-    // player states for animations
+    //Player states for animations + sounds
     public enum PlayerState
     {
         Walk = 0,
@@ -39,26 +39,28 @@ public class PlayerMovement : MonoBehaviour
     public bool isAttacking = false;
     public float attackCooldown;
 
-    // player input
+    //Player input
     float xInput;
     float zInput;
 
-    // sets rigidbody component
+    //Sets rigidbody component
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
     }
 
-    // updates variables 
+    //Updates ground + player states 
     void Update()
     {
         GroundChecks();
         StateMachine();
     }
 
+    //Jump input provided
     void OnJump()
     {
+        //If isn't busy with another state
         if(!isAttacking && !jumping && onGround && state != PlayerState.Damaged)
         {
             jumping = true;
@@ -67,12 +69,13 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    //Basic running toggle
     void OnSprint()
     {
         running = !running;
     }
 
-    // updates physics/ai based movement/info
+    //Updates physics/ai based movement/info
     void FixedUpdate()
     {
         MovePlayer();

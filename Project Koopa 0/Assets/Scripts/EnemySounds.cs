@@ -2,20 +2,19 @@ using UnityEngine;
 
 public class EnemySounds : MonoBehaviour
 {
-    [SerializeField] private AudioClip[] sounds = new AudioClip[2];
+    [SerializeField] private AudioClip[] sounds = new AudioClip[2]; //Hardcoded amount of sounds for enemy
     AudioSource source;
 
     EnemyBehaviour enemyBehaviour;
     EnemyBehaviour.EnemyState enemyState;
     EnemyBehaviour.EnemyState currentState = EnemyBehaviour.EnemyState.Idle;   //Default
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+
     void Start()
     {
         source = GetComponent<AudioSource>();
         enemyBehaviour = GetComponent<EnemyBehaviour>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         //Get current state
@@ -24,7 +23,7 @@ public class EnemySounds : MonoBehaviour
         //If same state, do nothing
         if (enemyState == currentState) return;
 
-        //Set animator's bool state
+        //Set sound to appropriate state
         if(enemyState == EnemyBehaviour.EnemyState.Chase)
         {
             source.clip = sounds[0];

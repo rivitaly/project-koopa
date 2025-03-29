@@ -21,6 +21,7 @@ public class ThirdPersonCam : MonoBehaviour
 
     void Update()
     {
+        //If player is damaged, dont rotate
         if (playerMovement.GetPlayerState() == PlayerMovement.PlayerState.Damaged) { return; }
         // rotates player orientation
         Vector3 viewDirection = player.transform.position - new Vector3(transform.position.x, player.transform.position.y, transform.position.z);

@@ -7,13 +7,12 @@ public class PlayerAnimation : MonoBehaviour
     GameObject playerObj;
     PlayerMovement.PlayerState playerState;
 
-    //I'm not too sure if AnimationClip is what to use, need to update
     Animator animator;
     PlayerMovement.PlayerState currentAnimation = PlayerMovement.PlayerState.Idle;   //Default
   
     void Start()
     {
-        playerObj = transform.Find("PlayerObj").gameObject;
+        playerObj = transform.Find("PlayerObj").gameObject; //Needed for the actual animations
         playerMovement = GetComponent<PlayerMovement>();
         animator = playerObj.GetComponent<Animator>();
     }

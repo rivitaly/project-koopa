@@ -2,14 +2,13 @@ using UnityEngine;
 
 public class PlayerSounds : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
 
-    [SerializeField] private AudioClip[] sounds = new AudioClip[4];
+    [SerializeField] private AudioClip[] sounds = new AudioClip[4]; //Hardcoded amount of sounds the player will use
     private AudioSource source;
 
     PlayerMovement playerMovement;
     PlayerMovement.PlayerState playerState;
-    PlayerMovement.PlayerState currentState = PlayerMovement.PlayerState.Idle;
+    PlayerMovement.PlayerState currentState = PlayerMovement.PlayerState.Idle;  //Default
 
     void Start()
     {
@@ -17,7 +16,6 @@ public class PlayerSounds : MonoBehaviour
         playerMovement = GetComponent<PlayerMovement>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         //Get current state
@@ -32,7 +30,7 @@ public class PlayerSounds : MonoBehaviour
             source.clip = sounds[3];
             source.loop = false;
         }
-        else if(playerState == PlayerMovement.PlayerState.Walk || playerState == PlayerMovement.PlayerState.Run)
+        else if(playerState == PlayerMovement.PlayerState.Walk || playerState == PlayerMovement.PlayerState.Run)    //Walk and Run will use same sound
         {
             source.clip = sounds[0];
             source.loop = true;
@@ -50,6 +48,7 @@ public class PlayerSounds : MonoBehaviour
         else
             source.clip = null;
 
+        //If theres an actual sound to play
         if (source.clip != null)
             source.Play();
 

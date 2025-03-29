@@ -23,7 +23,7 @@ public class PlayerHealth : MonoBehaviour
         rb = GetComponent<Rigidbody>();
     }
 
-    
+    //Displays heart UI
     void Update()
     {
         if (health > numOfHearts) 
@@ -46,11 +46,14 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
+    //When something touches player
     private void OnCollisionEnter(Collision other)
     {
+        //If the object can inflict damage and we're able to take damage
         if (other.gameObject.CompareTag("Damage") && canTakeDamage)
         {
             print("Damage");
+            //Set so we cant take damage temporarily while in damaged state
             canTakeDamage = false;
             playerMovement.SetPlayerState(PlayerMovement.PlayerState.Damaged);
             rb.constraints = RigidbodyConstraints.FreezeAll;
@@ -69,11 +72,14 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
+    //Timer function for vulnerability zone
     IEnumerator Damaged()
     {
+        //Taking damage
         yield return new WaitForSeconds(1.8f);
         playerMovement.SetPlayerState(PlayerMovement.PlayerState.Idle);
         rb.constraints = RigidbodyConstraints.None | RigidbodyConstraints.FreezeRotation;
+        //Recovery time
         yield return new WaitForSeconds(damagedStateLength);
         canTakeDamage = true;
     }
