@@ -6,35 +6,36 @@ using UnityEngine.Windows;
 
 public class GameManager : MonoBehaviour
 {
+    //reference to the inventory manager script and audio listener
     InventoryManager inventoryManager;
-    public GameObject gamepadCursor;
+    AudioListener audioListener;
+
+    //game objects for the camera and controller cursor
+    public GameObject cameraObj;
     public GameObject cursor;
 
     void Start()
     {
         inventoryManager = GetComponentInParent<InventoryManager>();
-        Application.targetFrameRate = 60;
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        audioListener = cameraObj.GetComponent<AudioListener>();
+        Application.targetFrameRate = 60; //frame rate set to 60
+        Cursor.lockState = CursorLockMode.Locked; //no cursor
+        Cursor.visible = false; //invisible cursor
     }
 
     void Update()
     {
-        if (inventoryManager.isInventoryOpen == true)
+        if (inventoryManager.isInventoryOpen == true) //when we open inventory
         {
-            Cursor.lockState = CursorLockMode.Confined;
-            Cursor.visible = true;
-            Time.timeScale = 0f;
-            gamepadCursor.SetActive(true);
-            cursor.SetActive(true);
+            Cursor.lockState = CursorLockMode.Confined; //confines mouse to game window
+            Time.timeScale = 0f; //freezes game
+            audioListener.enabled = false; //disables audio listener
         }
-        else if(inventoryManager.isInventoryOpen == false)
+        else if(inventoryManager.isInventoryOpen == false) //when we close inventory
         {
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
-            Time.timeScale = 1f;
-            gamepadCursor.SetActive(false);
-            cursor.SetActive(false);
+            Cursor.lockState = CursorLockMode.Locked; //no cursor
+            Time.timeScale = 1f; //unfreezes game
+            audioListener.enabled = true; //enables audio listener
         }
     }
 }
