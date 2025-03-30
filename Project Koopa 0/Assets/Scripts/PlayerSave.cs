@@ -5,37 +5,16 @@ using UnityEngine;
 public class PlayerSave : MonoBehaviour
 {
     //Structure for collectible data
-    struct Collectible
-    {
-        public string name;
-        public string description;
-        public bool collected;
-    }
+    //struct Collectible
+    //{
+    //    public string name;
+    //    public string description;
+    //    public bool collected;
+    //}
 
-    //Hardcoded collectibles information
-    Collectible[] collectibles = new Collectible[]
-    {
-        new Collectible{name = "", description = "", collected = false},
-        new Collectible{name = "", description = "", collected = false},
-        new Collectible{name = "", description = "", collected = false},
-        new Collectible{name = "", description = "", collected = false},
-        new Collectible{name = "", description = "", collected = false},
-        new Collectible{name = "", description = "", collected = false},
-        new Collectible{name = "", description = "", collected = false},
-        new Collectible{name = "", description = "", collected = false},
-        new Collectible{name = "", description = "", collected = false},
-        new Collectible{name = "", description = "", collected = false},
-        new Collectible{name = "", description = "", collected = false},
-        new Collectible{name = "", description = "", collected = false},
-        new Collectible{name = "", description = "", collected = false},
-        new Collectible{name = "", description = "", collected = false},
-        new Collectible{name = "", description = "", collected = false},
-        new Collectible{name = "", description = "", collected = false},
-        new Collectible{name = "", description = "", collected = false},
-        new Collectible{name = "", description = "", collected = false},
-        new Collectible{name = "", description = "", collected = false},
-        new Collectible{name = "", description = "", collected = false}
-    };
+
+    [SerializeField]
+    public InventoryObject InventoryData;
 
     //For updating UI
     PlayerCollectibles playerCollectibles;
@@ -52,29 +31,36 @@ public class PlayerSave : MonoBehaviour
         if(!collision.gameObject.CompareTag("Collectible")) { return; }
 
         //Find out which collectible we collided with
-        int collectibleNumber = collision.gameObject.GetComponent<CollectibleInfo>().GetCollectibleNumber();
+        //int collectibleNumber = collision.gameObject.GetComponent<CollectibleInfo>().GetCollectibleNumber();
 
         //If not collected before and collectible isn't state of being collected
-        if (!collectibles[collectibleNumber].collected && !collision.gameObject.GetComponent<CollectibleInfo>().isCollected)
+        //if (!collectibles[collectibleNumber].collected && !collision.gameObject.GetComponent<CollectibleInfo>().isCollected)
+        //{
+        //    //Set collectible as collected
+        //    collectibles[collectibleNumber].collected = true;
+        //    collision.gameObject.GetComponent<CollectibleInfo>().isCollected = true;
+        StartCoroutine(nameof(CollectedItem), collision.gameObject);
+        //    //Updates UI to display new accurate data
+        //    playerCollectibles.SetCount(CountCollected());
+        //}
+
+        Item item = collision.GetComponent<Item>();
+        if (item != null)
         {
-            //Set collectible as collected
-            collectibles[collectibleNumber].collected = true;
-            collision.gameObject.GetComponent<CollectibleInfo>().isCollected = true;
-            StartCoroutine(nameof(CollectedItem), collision.gameObject);
-            //Updates UI to display new accurate data
-            playerCollectibles.SetCount(CountCollected());
+            InventoryData.AddItem(item.ItemObj);
+            collision.gameObject.GetComponent<BoxCollider>().enabled = false;
         }
     }
 
-    int CountCollected()
-    {
-        int count = 0;
+    //int CountCollected()
+    //{
+    //    int count = 0;
 
-        for(int i = 0; i < collectibles.Length; i++)
-            count += collectibles[i].collected ? 1 : 0;
+    //    for(int i = 0; i < collectibles.Length; i++)
+    //        count += collectibles[i].collected ? 1 : 0;
 
-        return count;
-    }
+    //    return count;
+    //}
 
     //Timer function for collected effect
     IEnumerator CollectedItem(GameObject collectible)
@@ -86,20 +72,4 @@ public class PlayerSave : MonoBehaviour
         yield return new WaitForSeconds(1);
         Destroy(collectible);
     }
-
-    //Function that returns a particular collectible's data for UI uses
-    public (string, string, bool) GetCollectible(int index)
-    {
-        if(index >= collectibles.Length || index < 0) { Debug.LogError("Invalid index value"); return ("", "", false); }
-        return (collectibles[index].name, collectibles[index].description, collectibles[index].collected);
-    }
-
-    /* How to use GetCollectible:
-     * 
-     * string tempName;
-     * string tempDescription;
-     * bool tempBoolean
-     * 
-     * (tempName, tempDescription, tempBoolean) = GetCollectible(i);
-     */
 }

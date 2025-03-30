@@ -11,7 +11,6 @@ public class GameManager : MonoBehaviour
 
     //game objects for the camera and controller cursor
     public GameObject cameraObj;
-    public GameObject cursor;
 
     void Start()
     {
