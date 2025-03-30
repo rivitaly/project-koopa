@@ -13,6 +13,7 @@ public class InventoryManager : MonoBehaviour
     public int inventorySize = 21;
     public GameObject gamepadCursor;
     public bool isInventoryOpen = false;
+    public GameObject cursor;
 
     //Initializes the UI and fills the inventory with empty objects
     void Start()
@@ -47,6 +48,7 @@ public class InventoryManager : MonoBehaviour
         
         if (inventory.isActiveAndEnabled == false)
         {
+            if (Gamepad.all.Count > 0) { cursor.SetActive(true); }
             inventory.ShowObject();
             //loops through the inventory and updates the data for each slot
             foreach (var item in inventoryData.GetCurrentInventoryState())
@@ -59,6 +61,7 @@ public class InventoryManager : MonoBehaviour
         }
         else
         { 
+            cursor.SetActive(false);
             inventory.HideObject();
             isInventoryOpen = false;
             Cursor.visible = false;
