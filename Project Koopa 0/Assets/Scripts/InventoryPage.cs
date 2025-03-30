@@ -1,8 +1,9 @@
-using NUnit.Framework;
+//https://www.youtube.com/watch?v=xGNBjHG2Oss&list=PLcRSafycjWFegXSGBBf4fqIKWkHDw_G8D 
+//We wanted to have an inventory to our game and further research proved it to be quite the task, 
+//it is very complicated to someone who is new to unity so here is the guide that was followed and 
+//shaped our inventory system
 using System;
 using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEditor;
 using UnityEngine;
 
 public class InventoryPage : MonoBehaviour
@@ -20,6 +21,7 @@ public class InventoryPage : MonoBehaviour
 
     public event Action<int> DescriptionRequested; //description request event
 
+    //On awake reset description
     private void Awake()
     {
         description.ResetDescription();
@@ -85,6 +87,7 @@ public class InventoryPage : MonoBehaviour
         gameObject.SetActive(false);
     }
 
+    //updates the description of the selected item in the list
     internal void UpdateDescription(int index, string name, string newDescription)
     {
         description.SetDescription(name, newDescription);

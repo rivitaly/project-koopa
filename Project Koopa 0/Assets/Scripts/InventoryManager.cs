@@ -1,4 +1,7 @@
-using System;
+//https://www.youtube.com/watch?v=xGNBjHG2Oss&list=PLcRSafycjWFegXSGBBf4fqIKWkHDw_G8D 
+//We wanted to have an inventory to our game and further research proved it to be quite the task, 
+//it is very complicated to someone who is new to unity so here is the guide that was followed and 
+//shaped our inventory system
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -9,30 +12,33 @@ public class InventoryManager : MonoBehaviour
     public InventoryObject inventoryData;
     public int inventorySize = 21;
     public GameObject gamepadCursor;
-    public GameObject cursor;
     public bool isInventoryOpen = false;
 
+    //Initializes the UI and fills the inventory with empty objects
     void Start()
     {
         InitializeUI();
+        inventoryData.Initialize();
     }
 
+    //Initializes inventory with the inventory size and calls the event on when description is requested
     void InitializeUI()
     {
         inventory.InitInventoryUI(inventoryData.inventorySize);
         this.inventory.DescriptionRequested += HandleDescriptionRequested;
     }
 
+    //handler for the event
     void HandleDescriptionRequested(int index)
     {
-        ThisInventoryItem inventoryItem = inventoryData.GetItemAt(index);
+        ThisInventoryItem inventoryItem = inventoryData.GetItemAt(index); //Get item at the index
         if (inventoryItem.IsEmpty)
         {
-            inventory.ResetSelection();
+            inventory.ResetSelection(); //if empty reset selection (removes border)
             return;
         }
-        ItemObject item = inventoryItem.Item;
-        inventory.UpdateDescription(index, item.Name, item.Description); 
+        ItemObject item = inventoryItem.Item; //stores ItemObject from item selected
+        inventory.UpdateDescription(index, item.Name, item.Description); //updates the description from the selected object
     }
 
     //Input call for Q on keyboard and Button North on controller it opens the inventory
@@ -42,6 +48,7 @@ public class InventoryManager : MonoBehaviour
         if (inventory.isActiveAndEnabled == false)
         {
             inventory.ShowObject();
+            //loops through the inventory and updates the data for each slot
             foreach (var item in inventoryData.GetCurrentInventoryState())
             {
                 inventory.UpdateData(item.Key, item.Value.Item.ItemImage);
@@ -49,7 +56,6 @@ public class InventoryManager : MonoBehaviour
             isInventoryOpen = true;
             Cursor.visible = true;
             gamepadCursor.SetActive(true);
-            cursor.SetActive(true);
         }
         else
         { 
@@ -57,7 +63,6 @@ public class InventoryManager : MonoBehaviour
             isInventoryOpen = false;
             Cursor.visible = false;
             gamepadCursor.SetActive(false);
-            cursor.SetActive(false);
         }
     }
 }
