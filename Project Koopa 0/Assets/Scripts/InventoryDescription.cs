@@ -1,16 +1,30 @@
+using System;
+using TMPro;
 using UnityEngine;
 
 public class InventoryDescription : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    //Elements for the description panel
+    public TMP_Text itemName;
+    public TMP_Text description;
+
+    //Resets the description panel
+    public void Awake()
     {
-        
+        ResetDescription();
     }
 
-    // Update is called once per frame
-    void Update()
+    //Sets item name and description text to none
+    public void ResetDescription()
     {
-        
+        this.itemName.text = "";
+        this.description.text = "";
+    }
+
+    //Sets item name and description text to the parameters
+    public void SetDescription(string name, string description)
+    {
+        this.itemName.text = name;
+        this.description.text = description;
     }
 }

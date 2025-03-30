@@ -36,7 +36,6 @@ public class GemBehaviour : MonoBehaviour
 
     private void OnCollisionEnter(Collision other)
     {
-        print("Here");
         if (other.gameObject.CompareTag("Player")) 
         {
             

@@ -1,15 +1,30 @@
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
+using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 
 public class InventoryPage : MonoBehaviour
 {
+    //UI Item prefab
     public InventoryItem itemPrefab;
+
+    //Content panel
     public RectTransform content;
+
+    //Description panel
+    public InventoryDescription description;
 
     List<InventoryItem> listOfUIItems = new List<InventoryItem>(); //list of prefabs for inventory
 
+    public event Action<int> DescriptionRequested; //description request event
+
+    private void Awake()
+    {
+        //HideObject();
+        description.ResetDescription();
+    }
     // fills the inventory grid with our UI item prefab 
     public void InitInventoryUI(int size) 
     {
@@ -23,16 +38,45 @@ public class InventoryPage : MonoBehaviour
         }
     }
 
+    //Sets each ItemUI prefab in the list with an image
+    public void UpdateData(int index, Sprite image)
+    {
+        if (listOfUIItems.Count > index)
+        {
+            listOfUIItems[index].Set(image);
+        }
+    }
+
     //This function will handle the item that gets selected and will provide us with the item name and description
     private void HandleItemSelect(InventoryItem item)
     {
-        print(item.name);
+        int index = listOfUIItems.IndexOf(item);
+        if (index == -1)
+            return;
+        DescriptionRequested?.Invoke(index);
     }
 
-    //shows inventory
+    //shows inventory with no description shown
     public void ShowObject()
     { 
         gameObject.SetActive(true);
+        ResetSelection();
+    }
+
+    //Resets description panel
+    void ResetSelection()
+    {
+        description.ResetDescription();
+        DeselectItems();
+    }
+
+    //Every item gets deselected in which removes the border
+    void DeselectItems()
+    {
+        foreach (InventoryItem item in listOfUIItems)
+        {
+            item.Deselect();
+        }
     }
 
     //hides inventory
