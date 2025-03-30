@@ -62,11 +62,11 @@ public class PlayerSave : MonoBehaviour
             collision.gameObject.GetComponent<CollectibleInfo>().isCollected = true;
             StartCoroutine(nameof(CollectedItem), collision.gameObject);
             //Updates UI to display new accurate data
-            playerCollectibles.setCount(countCollected());
+            playerCollectibles.SetCount(CountCollected());
         }
     }
 
-    int countCollected()
+    int CountCollected()
     {
         int count = 0;
 

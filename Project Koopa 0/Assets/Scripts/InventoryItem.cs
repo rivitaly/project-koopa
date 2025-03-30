@@ -13,7 +13,7 @@ public class InventoryItem : MonoBehaviour
     public event Action<InventoryItem> OnItemClicked;
 
     //bool for if inventory slot is empty
-    bool empty = true;
+    public bool empty = true;
 
     public void Start()
     {

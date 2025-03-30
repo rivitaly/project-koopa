@@ -16,22 +16,22 @@ public class InventoryPage : MonoBehaviour
     //Description panel
     public InventoryDescription description;
 
-    List<InventoryItem> listOfUIItems = new List<InventoryItem>(); //list of prefabs for inventory
+    List<InventoryItem> listOfUIItems = new(); //list of prefabs for inventory
 
     public event Action<int> DescriptionRequested; //description request event
 
     private void Awake()
     {
-        //HideObject();
         description.ResetDescription();
     }
+
     // fills the inventory grid with our UI item prefab 
     public void InitInventoryUI(int size) 
     {
         for (int i = 0; i < size; i++)
         {
             InventoryItem item = Instantiate(itemPrefab, Vector3.zero, Quaternion.identity); //creates item
-            item.transform.SetParent(content, false); //transforms to parnt content UI window
+            item.transform.SetParent(content, false); //transforms to parent content UI window
             listOfUIItems.Add(item); //adds it to list
 
             item.OnItemClicked += HandleItemSelect; //when the item is click it triggers this method
@@ -64,7 +64,7 @@ public class InventoryPage : MonoBehaviour
     }
 
     //Resets description panel
-    void ResetSelection()
+    public void ResetSelection()
     {
         description.ResetDescription();
         DeselectItems();
@@ -84,5 +84,11 @@ public class InventoryPage : MonoBehaviour
     {
         gameObject.SetActive(false);
     }
-    
+
+    internal void UpdateDescription(int index, string name, string newDescription)
+    {
+        description.SetDescription(name, newDescription);
+        DeselectItems();
+        listOfUIItems[index].Select();
+    }
 }

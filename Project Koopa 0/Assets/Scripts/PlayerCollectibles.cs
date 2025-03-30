@@ -11,5 +11,5 @@ public class PlayerCollectibles : MonoBehaviour
     }
 
     //Sets UI to display current gems value determined by PlayerSave
-    public void setCount(int count) { gemsCollected.text = count.ToString(); }
+    public void SetCount(int count) { gemsCollected.text = count.ToString(); }
 }

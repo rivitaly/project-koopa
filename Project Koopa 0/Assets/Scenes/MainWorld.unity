@@ -2357,7 +2357,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_Sprite: {fileID: 21300000, guid: 2b29a731db6fc794faf5322986b17646, type: 3}
-  m_Type: 1
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -3198,8 +3198,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 100.39421, y: -21.284424}
-  m_SizeDelta: {x: 180.78842, y: 22.568855}
+  m_AnchoredPosition: {x: 100.39421, y: -22.810944}
+  m_SizeDelta: {x: 180.78842, y: 5.6218905}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &753280946
 MonoBehaviour:
@@ -3244,7 +3244,7 @@ MonoBehaviour:
   m_text: New Text
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: bebf000655048ac42b50d0c46e0f94ae, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 4045346603244339709, guid: bebf000655048ac42b50d0c46e0f94ae, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -3309,7 +3309,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &753280948
@@ -3786,8 +3786,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 100.39421, y: -156.28441}
-  m_SizeDelta: {x: 180.78842, y: 227.4311}
+  m_AnchoredPosition: {x: 100.39421, y: -157.81093}
+  m_SizeDelta: {x: 180.78842, y: 224.37808}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &888709215
 MonoBehaviour:
@@ -3829,17 +3829,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "A demo paragraph is a powerful tool for writers, designers, and developers
-    as it functions as placeholder text to visualize content within a layout. By
-    utilizing demo text, professionals can test and refine formatting, alignment,
-    and structure before finalizing the actual content. Designers use demo text to
-    ensure visual elements\u2014such as images, buttons, and call-to-action boxes\u2014are
-    properly spaced and balanced with text components, creating an aesthetically
-    pleasing experience. For writers, demo paragraphs offer a framework to experiment
-    with styles and visualize the impact of various content formats."
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: bebf000655048ac42b50d0c46e0f94ae, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 4045346603244339709, guid: bebf000655048ac42b50d0c46e0f94ae, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -3875,7 +3868,7 @@ MonoBehaviour:
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
-  m_lineSpacing: 0
+  m_lineSpacing: 100
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
@@ -3904,7 +3897,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &888709217
@@ -5740,10 +5733,10 @@ MonoBehaviour:
   m_Padding:
     m_Left: 10
     m_Right: 10
-    m_Top: 10
+    m_Top: 20
     m_Bottom: 10
   m_ChildAlignment: 4
-  m_Spacing: 10
+  m_Spacing: 20
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 1
@@ -9918,6 +9911,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inventory: {fileID: 534998113}
+  inventoryData: {fileID: 11400000, guid: 3c597d91200a03942837a66d1dd42abc, type: 2}
   inventorySize: 21
   gamepadCursor: {fileID: 946458288}
   cursor: {fileID: 1368493395}
