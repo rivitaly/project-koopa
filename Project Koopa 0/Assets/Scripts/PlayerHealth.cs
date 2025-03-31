@@ -52,7 +52,6 @@ public class PlayerHealth : MonoBehaviour
         //If the object can inflict damage and we're able to take damage
         if (other.gameObject.CompareTag("Damage") && canTakeDamage)
         {
-            print("Damage");
             //Set so we cant take damage temporarily while in damaged state
             canTakeDamage = false;
             playerMovement.SetPlayerState(PlayerMovement.PlayerState.Damaged);

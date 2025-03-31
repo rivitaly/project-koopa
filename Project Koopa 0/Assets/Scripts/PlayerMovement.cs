@@ -173,12 +173,6 @@ public class PlayerMovement : MonoBehaviour
             isAttacking = true;
             StartCoroutine(nameof(Attack));
         }
-        // swing batter batter swing 
-        // control collision
-        // play animation
-        // wait for animation to finish playing
-        // set is attacking to false
-        //isAttacking = false;
     }
 
     // changes the state our player is in, we will use this state to determine what animation to play for our character
