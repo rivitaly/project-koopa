@@ -10,9 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f7b9c23b4433c0841b97e2a9a668f335, type: 3}
-  m_Name: Pot 12
+  m_Name: EvilEntity
   m_EditorClassIdentifier: 
-  <Name>k__BackingField: Pot
+  <Name>k__BackingField: EvilEntity
   <Description>k__BackingField: You are Corvus, the destroyer of Worlds... just kidding!
   <ItemImage>k__BackingField: {fileID: 21300000, guid: 82f2c73513438a44db0909436d79e10d, type: 3}
-  <Collected>k__BackingField: 0
