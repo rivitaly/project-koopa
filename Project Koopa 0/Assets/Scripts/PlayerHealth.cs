@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -67,8 +68,20 @@ public class PlayerHealth : MonoBehaviour
             {
                 health -= 1;
                 //Setup dying
+                StartCoroutine(nameof(Die));
             }
         }
+    }
+
+    //Timer function for dying
+    IEnumerator Die()
+    {
+        yield return new WaitForSeconds(2);
+        //Fade to black
+
+        yield return new WaitForSeconds(1);
+        //Load death screen
+        SceneManager.LoadScene("DeathMenu");
     }
 
     //Timer function for vulnerability zone

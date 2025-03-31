@@ -12,7 +12,7 @@ public class PlayerSave : MonoBehaviour
         public bool collected;
     }
 
-    //Hardcoded collectibles information
+    //Hardcoded collectibles information, useless details due to new inventory system - used for collectible despawning now
     Collectible[] collectibles = new Collectible[]
     {
         new Collectible{name = "1", description = "", collected = false},
@@ -34,13 +34,15 @@ public class PlayerSave : MonoBehaviour
         new Collectible{name = "17", description = "", collected = false},
         new Collectible{name = "18", description = "", collected = false},
         new Collectible{name = "19", description = "", collected = false},
-        new Collectible{name = "20", description = "", collected = false}
+        new Collectible{name = "20", description = "", collected = false},
+        new Collectible{name = "21", description = "", collected = false}
     };
 
     //For updating UI
     PlayerCollectibles playerCollectibles;
 
     [SerializeField] public InventoryObject inventoryObject;
+    [SerializeField] GameObject hiddenDoor;
 
     private void Start()
     {
@@ -64,7 +66,11 @@ public class PlayerSave : MonoBehaviour
             collision.gameObject.GetComponent<CollectibleInfo>().isCollected = true;
             StartCoroutine(nameof(CollectedItem), collision.gameObject);
             //Updates UI to display new accurate data
-            playerCollectibles.SetCount(CountCollected());
+            int count = CountCollected();
+            playerCollectibles.SetCount(count);
+
+            if (count >= 20)
+                hiddenDoor.SetActive(false);
         }
 
         Item item = collision.GetComponent<Item>();
