@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerSounds : MonoBehaviour
 {
@@ -55,4 +56,5 @@ public class PlayerSounds : MonoBehaviour
         //Switch currentState to playerState
         currentState = playerState;
     }
+
 }

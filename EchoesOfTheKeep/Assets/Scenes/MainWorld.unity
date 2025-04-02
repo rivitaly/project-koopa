@@ -23338,6 +23338,7 @@ GameObject:
   - component: {fileID: 1616546084}
   - component: {fileID: 1616546083}
   - component: {fileID: 1616546087}
+  - component: {fileID: 1616546088}
   m_Layer: 0
   m_Name: Camera
   m_TagString: Untagged
@@ -23567,6 +23568,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1616546088
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1616546081}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 807209652586705458cfad4260046db6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  secretSound: {fileID: 8300000, guid: a1ef050820e0bff4593d0d0fbf520b41, type: 3}
 --- !u!4 &1633339629 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4274663348003318413, guid: 4578470b8a6cb23428251f1de3862b7f, type: 3}
@@ -31238,7 +31252,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sounds:
-  - {fileID: 8300000, guid: 3fbb454b1255faa4ba6a3f34f62d7d14, type: 3}
+  - {fileID: 8300000, guid: 28c2081df2f726044b457c0265379e3f, type: 3}
   - {fileID: 8300000, guid: 15960e144e9265e4f88c08ba6ad60811, type: 3}
   - {fileID: 8300000, guid: 10880ee032ee60541a49c50ee9937435, type: 3}
   - {fileID: 8300000, guid: 55ac4011c18e20a4391c8a94b4b5febf, type: 3}

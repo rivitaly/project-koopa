@@ -27,16 +27,19 @@ public class EnemySounds : MonoBehaviour
         if(enemyState == EnemyBehaviour.EnemyState.Chase)
         {
             source.clip = sounds[0];
+            source.volume = 0.75f;
             source.loop = true;
         }
         else if(enemyState == EnemyBehaviour.EnemyState.Attack)
         {
             source.clip = sounds[1];
+            source.volume = 0.5f;
             source.loop = false;
         }
         else
         {
             source.clip = null;
+            source.volume = 0.5f;
         }
 
         source.Play();
