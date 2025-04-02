@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7b9c23b4433c0841b97e2a9a668f335, type: 3}
   m_Name: Waterfall
   m_EditorClassIdentifier: 
-  <Name>k__BackingField: Waterfall
-  <Description>k__BackingField: You are Corvus, the destroyer of Worlds... just kidding!
+  <Name>k__BackingField: A Peasant's Robe
+  <Description>k__BackingField: Something so dirty and smelly yet by a water source...
   <ItemImage>k__BackingField: {fileID: 21300000, guid: 82f2c73513438a44db0909436d79e10d, type: 3}

@@ -1,3 +1,4 @@
+using NUnit.Framework.Constraints;
 using System.Collections;
 using Unity.Properties;
 using UnityEngine;
@@ -94,12 +95,17 @@ public class PlayerSave : MonoBehaviour
     //Timer function for collected effect
     IEnumerator CollectedItem(GameObject collectible)
     {
-        //Play visual effect
-
         //Play sound
         collectible.GetComponent<AudioSource>().Play();
-        yield return new WaitForSeconds(1);
-        Destroy(collectible);
+
+        //Play visual effect
+        for (int i = 0; i < 60; i++)
+        {
+            collectible.transform.localScale -= new Vector3(0.025f, 0.025f, 0.025f);
+            yield return new WaitForSeconds(1/60);
+            if (i == 59)
+                Destroy(collectible);
+        }
     }
 
     //Function that returns a particular collectible's data for UI uses

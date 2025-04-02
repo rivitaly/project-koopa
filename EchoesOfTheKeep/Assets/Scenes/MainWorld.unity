@@ -12269,8 +12269,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4279180587
+  m_fontColor: {r: 0.16981131, g: 0.11516266, b: 0.056870773, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -23484,7 +23484,7 @@ AudioSource:
   m_audioClip: {fileID: 8300000, guid: 507fcea7fb3355146886c48aebd5e427, type: 3}
   m_Resource: {fileID: 8300000, guid: 507fcea7fb3355146886c48aebd5e427, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.05
+  m_Volume: 0.025
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -26751,7 +26751,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1858850673}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: Gullible
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

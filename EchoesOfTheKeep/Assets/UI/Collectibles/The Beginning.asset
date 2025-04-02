@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7b9c23b4433c0841b97e2a9a668f335, type: 3}
   m_Name: The Beginning
   m_EditorClassIdentifier: 
-  <Name>k__BackingField: The Beginning
-  <Description>k__BackingField: You are Corvus, the destroyer of Worlds... just kidding!
-    Corvus is just a simple commoner from the town of Dawnviel. You grew up with
-    a normal life until on day...
+  <Name>k__BackingField: The Cliff
+  <Description>k__BackingField: The area seems to have this cliff as the central
+    point.  I can see it as a good lookout point... But that means the wizards probably
+    did too.
   <ItemImage>k__BackingField: {fileID: 21300000, guid: 82f2c73513438a44db0909436d79e10d, type: 3}

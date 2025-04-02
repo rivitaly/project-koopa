@@ -12,6 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7b9c23b4433c0841b97e2a9a668f335, type: 3}
   m_Name: The Keeper
   m_EditorClassIdentifier: 
-  <Name>k__BackingField: The Keeper
-  <Description>k__BackingField: You are Corvus, the destroyer of Worlds... just kidding!
+  <Name>k__BackingField: The Keeper?
+  <Description>k__BackingField: '"I''ve protected these grounds for many years, and
+    of all foes I''ve had to face, these wizards have been the most tedious.  They
+    come in numbers and don''t seem to fear me.  I better start heading back to Dawnveil
+    if I am to finally tell-".  Who was the Keeper going to talk to, and why did
+    he not finish this note?'
   <ItemImage>k__BackingField: {fileID: 21300000, guid: 82f2c73513438a44db0909436d79e10d, type: 3}

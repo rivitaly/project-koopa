@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: Ancient Rock Formation
   m_EditorClassIdentifier: 
   <Name>k__BackingField: Ancient Rock Formation
-  <Description>k__BackingField: You are Corvus, the destroyer of Worlds... just kidding!
+  <Description>k__BackingField: This rock formation wasn't here when I was younger,
+    did the Keeper manage to create this?  They must be super powerful.
   <ItemImage>k__BackingField: {fileID: 21300000, guid: 82f2c73513438a44db0909436d79e10d, type: 3}

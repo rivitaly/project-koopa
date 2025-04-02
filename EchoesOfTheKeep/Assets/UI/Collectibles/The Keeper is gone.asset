@@ -12,6 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7b9c23b4433c0841b97e2a9a668f335, type: 3}
   m_Name: The Keeper is gone
   m_EditorClassIdentifier: 
-  <Name>k__BackingField: The Keeper is gone...
-  <Description>k__BackingField: You are Corvus, the destroyer of Worlds... just kidding!
+  <Name>k__BackingField: Washed Out Note in a Bottle
+  <Description>k__BackingField: 'We believe this is the final known location of the
+    Keeper before vanishing.  He seems to have a note with ink mostly washed away
+    from storms with the few visible words reading: "Too many.......................need
+    to find C-.......only hop-........"'
   <ItemImage>k__BackingField: {fileID: 21300000, guid: 82f2c73513438a44db0909436d79e10d, type: 3}
