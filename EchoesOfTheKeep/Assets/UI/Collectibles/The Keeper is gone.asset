@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Name>k__BackingField: Washed Out Note in a Bottle
   <Description>k__BackingField: 'We believe this is the final known location of the
-    Keeper before vanishing.  He seems to have a note with ink mostly washed away
+    Keeper before vanishing. He seems to have a note with ink mostly washed away
     from storms with the few visible words reading: "Too many.......................need
     to find C-.......only hop-........"'
   <ItemImage>k__BackingField: {fileID: 21300000, guid: 82f2c73513438a44db0909436d79e10d, type: 3}

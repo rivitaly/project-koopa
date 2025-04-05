@@ -20,21 +20,21 @@ MonoBehaviour:
     m_PointSize: 75
     m_Scale: 1
     m_UnitsPerEM: 4096
-    m_LineHeight: 17.010498
-    m_AscentLine: 13.73291
-    m_CapLine: 51
-    m_MeanLine: 39
+    m_LineHeight: 98
+    m_AscentLine: 77
+    m_CapLine: 59
+    m_MeanLine: 45
     m_Baseline: 0
-    m_DescentLine: -3.112793
+    m_DescentLine: -18
     m_SuperscriptOffset: 13.73291
     m_SuperscriptSize: 0.5
-    m_SubscriptOffset: -3.112793
+    m_SubscriptOffset: -18
     m_SubscriptSize: 0.5
-    m_UnderlineOffset: -2.380371
-    m_UnderlineThickness: 0.32958984
+    m_UnderlineOffset: -12
+    m_UnderlineThickness: 6.3
     m_StrikethroughOffset: 15.6
     m_StrikethroughThickness: 0.32958984
-    m_TabWidth: 20
+    m_TabWidth: 24
   m_Material: {fileID: 4045346603244339709}
   m_SourceFontFileGUID: c92014598e5bfa047a0d1611fb395c67
   m_CreationSettings:
