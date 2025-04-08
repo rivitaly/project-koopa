@@ -14,6 +14,7 @@ public class InventoryManager : MonoBehaviour
     public GameObject gamepadCursor;
     public bool isInventoryOpen = false;
     public GameObject cursor;
+    public StartingDescription helpDescription;
 
     //Initializes the UI and fills the inventory with empty objects
     void Start()
@@ -45,8 +46,7 @@ public class InventoryManager : MonoBehaviour
     //Input call for Q on keyboard and Button North on controller it opens the inventory
     void OnInventory() 
     {
-        
-        if (inventory.isActiveAndEnabled == false)
+        if (inventory.isActiveAndEnabled == false && helpDescription.isStartHelpOpen == false)
         {
             if (Gamepad.all.Count > 0) { cursor.SetActive(true); }
             inventory.ShowObject();

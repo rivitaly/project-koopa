@@ -14,12 +14,14 @@ public class CollectibleBounce : MonoBehaviour
     {
         time += Time.deltaTime;
 
+        //inverts if the collectible is going up. 
         if (time > timeInterval)
         {
             goingUp = !goingUp;
             time = 0f;
         }
 
+        //moves the collectible up and down and it spins 
         transform.position += goingUp ? new Vector3(0, hoverSpeed * Time.deltaTime, 0) : new Vector3(0, -hoverSpeed * Time.deltaTime, 0);
         transform.Rotate(0, (rotateSpeed * Time.deltaTime ) % 360, 0);
     }

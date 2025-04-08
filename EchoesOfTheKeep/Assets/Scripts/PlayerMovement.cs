@@ -89,9 +89,6 @@ public class PlayerMovement : MonoBehaviour
     }
 
     // moves player based on input and forward orientation
-    // still need to change angles, cant jump while on slope
-    // con for frictionless, character slides down slopes so need to adjust that
-    // pro for frictionless, smooth movement
     void MovePlayer() 
     {
         float speed;
@@ -106,7 +103,7 @@ public class PlayerMovement : MonoBehaviour
         if (onGround)
             rb.AddForce(10f * speed * moveDir, ForceMode.Force);
 
-        // movement while in air
+        // movement while in air (limits speed)
         else if (!onGround)
         {
             rb.AddForce(10f * speed * airChange * moveDir, ForceMode.Force);

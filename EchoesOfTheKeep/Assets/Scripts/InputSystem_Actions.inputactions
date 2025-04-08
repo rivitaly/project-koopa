@@ -513,11 +513,33 @@
                 },
                 {
                     "name": "",
+                    "id": "6af803cf-752f-48e5-816b-ec4a5d085ef9",
+                    "path": "<Keyboard>/3",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Up",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "8bd6dad0-13d5-4637-9743-654bca4fb8bf",
                     "path": "<Gamepad>/dpad/down",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Gamepad",
+                    "action": "Down",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3b14ed03-74da-4557-a814-2f297c04613b",
+                    "path": "<Keyboard>/4",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
                     "action": "Down",
                     "isComposite": false,
                     "isPartOfComposite": false

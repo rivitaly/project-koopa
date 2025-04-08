@@ -27,6 +27,7 @@ public class PlayerHealth : MonoBehaviour
     //Displays heart UI
     void Update()
     {
+        //confines health to the number of hearts available
         if (health > numOfHearts) 
         {
             health = numOfHearts;
@@ -36,14 +37,14 @@ public class PlayerHealth : MonoBehaviour
         {
             if (i < health) 
             {
-                hearts[i].GetComponent<Renderer>().material = fullHeart;
+                hearts[i].GetComponent<Renderer>().material = fullHeart; //sets the colour to red to indicate we have health
             }
             else 
             {
-                hearts[i].GetComponent<Renderer>().material = emptyHeart;
+                hearts[i].GetComponent<Renderer>().material = emptyHeart; //sets the colour to grey to indicate we are losing health
             }
 
-            hearts[i].SetActive(i < numOfHearts);
+            hearts[i].SetActive(i < numOfHearts); //for if we add extra hearts
         }
     }
 
