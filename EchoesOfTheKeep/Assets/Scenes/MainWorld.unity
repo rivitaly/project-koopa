@@ -2650,7 +2650,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 153676948}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0.0063751102, y: -0.0062354966, z: 0.00003975356, w: 0.99996024}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -12158,8 +12158,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: "Hey you, there are enemies around here defeat them. You will also find
-    collecitbles around here. Find them and find out what happened to the Keeper.
-    Don't get killed out there. \nUse the movement keys wsad or use the left stick
+    collectibles around here. Find them and find out what happened to the Keeper.
+    Don't get killed out there. \nUse the movement keys wasd or use the left stick
     on the controller\nPress the spacebar / South button to jump\nPress the left
     click / West button to attack\nPress Q / North button to open your inventory"
   m_isRightToLeft: 0
